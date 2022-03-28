@@ -13,18 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final title;
-  final initialPage;
-  Widget? bodyContent;
-  String? appBarTitle;
 
-  _HomePageState(this.initialPage, this.title);
+   Widget bodyContent;
+   String appBarTitle;
+
+  _HomePageState(this.bodyContent, this.appBarTitle);
   @override
   void initState() {
     super.initState();
-    this.appBarTitle = this.title;
-    this.bodyContent = MovieListPage();
-    this.bodyContent = this.initialPage;
   }
 
   @override
@@ -61,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xff000000),
+      backgroundColor: Color(0xff464646),
       appBar: AppBar(
         title: Text(appBarTitle!),
         backgroundColor: Color(0xff282828),
