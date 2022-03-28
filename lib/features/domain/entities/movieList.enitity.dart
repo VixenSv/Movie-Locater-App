@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../../data/models/MovieList.model.dart';
 
 class MovieListEntity extends Equatable {
-  final List<String> imageList;
+  final List<String> movieList;
 
-  MovieListEntity({required this.imageList}) : super();
+  MovieListEntity({required this.movieList}) : super();
 
   static Future<MovieListEntity> toMovieListEntity(
       MovieListModel movieListModel) async {
-    return await MovieListEntity(imageList: movieListModel.movieList);
+    return await MovieListEntity(movieList: movieListModel.movieList);
   }
 
   @override

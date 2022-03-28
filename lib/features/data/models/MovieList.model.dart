@@ -10,15 +10,21 @@ class MovieListModel extends Equatable {
   MovieListModel({this.movieList}) : super();
 
   Future<MovieListModel> toMovieModel(List<DocumentSnapshot> list) async {
-    List<MovieModel> movieList = new List.empty();
+    List<MovieModel> movieList = new List.empty(growable: true);
 
     for (var i in list) {
+      print('+++++++++++++++++++++++++++++++');
+      print(i.get('theaterIdList'));
       MovieModel movieModel = new MovieModel(
-          movieId: i.data['movieId'],
-          movieName: i.data['movieName'],
-          movieDescription: i.data['movieDescription'],
-          theaterIdList: i.data['theaterIdList'],
-          movieImage: i.data['movieImage']);
+          movieId: i.get('movieId'),
+          movieName: i.get('movieName'),
+          movieDescription: i.get('movieDescription'),
+          theaterIdList: i.get('theaterIdList'),
+          movieImage: i.get('movieImage'));
+
+      print(
+          '-------------------------- movieModel -----------------------------');
+      print(movieModel);
       movieList.add(movieModel);
     }
 

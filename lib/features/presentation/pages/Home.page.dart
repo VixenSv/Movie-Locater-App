@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xff464646),
       appBar: AppBar(
-        title: Text(appBarTitle!),
+        title: Text(appBarTitle),
         backgroundColor: Color(0xff282828),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(

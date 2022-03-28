@@ -15,25 +15,25 @@ const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 
 class MovielocatorblocBloc
     extends Bloc<MovielocatorblocEvent, MovielocatorblocState> {
-  final GetMovieList getMovieList;
+  GetMovieList getMovieList;
 
-  MovielocatorblocBloc({required this.getMovieList});
+  MovielocatorblocBloc({required this.getMovieList})
+      : super(MovieListLoading()) {
+    on<GetMovieListEvent>(_onGetMovieList);
+  }
+
+  Future<void> _onGetMovieList(
+      GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await getMovieList(NoParams());
+    _eitherListLodedOrErrorState(failureOrImageEntity, emit);
+  }
 
   @override
   MovielocatorblocState get initialState => Empty();
 
-  @override
-  Stream<MovielocatorblocState> mapEventToState(
-      MovielocatorblocEvent event) async* {
-    if (event is GetMovieListEvent) {
-      yield Loading();
-      // final failureOrImageListModel = await getMovieList(NoParams());
-      // yield* _eitherListLodedOrErrorState(failureOrImageListModel);
-    }
-  }
-
   Stream<MovielocatorblocState> _eitherListLodedOrErrorState(
-      Either<Failure, MovieListEntity> failureOrImageEntity) async* {
+      Either<Failure, MovieListEntity> failureOrImageEntity,
+      Emitter<MovielocatorblocState> emit) async* {
     yield failureOrImageEntity.fold(
       (failure) => Error(
         message: _mapFailureToMessage(failure),

@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 import '../../data/models/movie.model.dart';
 
 class MovieEntity extends Equatable {
-  final String? movieName;
-  final String? movieImage;
-  final String? movieDescription;
-  final int? movieID;
-  final List<int>? theatherIdList;
+  final String movieName;
+  final String movieImage;
+  final String movieDescription;
+  final int movieID;
+  final List<dynamic> theatherIdList;
 
   MovieEntity(
       {required this.movieImage,
@@ -37,5 +37,6 @@ class MovieEntity extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props =>
+      [this.movieID, this.movieName, this.movieImage, this.movieDescription];
 }
