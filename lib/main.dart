@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'features/presentation/pages/Home.page.dart';
+import 'features/presentation/pages/MovieList.page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,6 +15,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Movie Locator',
         initialRoute: '/home',
-        routes: {'/home': (context) => HomePage(ListPage(), 'Home')});
+        routes: {
+          '/home': (context) => HomePage(MovieListPage(), 'Movie List')
+        });
   }
 }
