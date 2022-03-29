@@ -20,13 +20,23 @@ class MovielocatorblocBloc
   MovielocatorblocBloc({required this.getMovieList})
       : super(MovieListLoading()) {
     on<GetMovieListEvent>(_onGetMovieList);
+    //add your methods here
   }
 
   Future<void> _onGetMovieList(
       GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
     final failureOrImageEntity = await getMovieList(NoParams());
-    _eitherListLodedOrErrorState(failureOrImageEntity, emit);
+    failureOrImageEntity.map((r) => print(r.movieList[0].movieName));
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
+    );
+    // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
   }
+
+  //create custom methods
 
   @override
   MovielocatorblocState get initialState => Empty();

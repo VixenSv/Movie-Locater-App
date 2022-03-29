@@ -12,7 +12,7 @@ import '../models/movie.model.dart';
 abstract class RemoteDataSource {
   Future<MovieListModel> getImageList();
   Future<MovieModel> saveUrl(MovieModel movieModel);
-  Future<MovieModel> uploadImage(MovieModel movieModel);
+  Future<MovieModel> uploadMovie(MovieModel movieModel);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -23,7 +23,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<MovieModel> saveUrl(MovieModel movieModel) {
-    CollectionReference refs = FirebaseFirestore.instance.collection('images');
+    CollectionReference refs = FirebaseFirestore.instance.collection('movies');
 
     return refs
         .add({
@@ -34,7 +34,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<MovieModel> uploadImage(MovieModel movieModel) async {
+  Future<MovieModel> uploadMovie(MovieModel movieModel) async {
     final _imageName = movieModel.movieImage;
     final _storage = FirebaseStorage.instance;
     var downloadUrl;

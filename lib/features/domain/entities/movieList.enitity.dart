@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_locator_app/features/data/models/movie.model.dart';
 
 import '../../data/models/MovieList.model.dart';
 
 class MovieListEntity extends Equatable {
-  final List<String> movieList;
+  final List<MovieModel> movieList;
 
   MovieListEntity({required this.movieList}) : super();
 
@@ -15,5 +16,5 @@ class MovieListEntity extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [movieList];
 }

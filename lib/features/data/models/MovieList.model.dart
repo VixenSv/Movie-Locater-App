@@ -13,25 +13,18 @@ class MovieListModel extends Equatable {
     List<MovieModel> movieList = new List.empty(growable: true);
 
     for (var i in list) {
-      print('+++++++++++++++++++++++++++++++');
-      print(i.get('theaterIdList'));
       MovieModel movieModel = new MovieModel(
           movieId: i.get('movieId'),
           movieName: i.get('movieName'),
           movieDescription: i.get('movieDescription'),
           theaterIdList: i.get('theaterIdList'),
           movieImage: i.get('movieImage'));
-
-      print(
-          '-------------------------- movieModel -----------------------------');
-      print(movieModel);
       movieList.add(movieModel);
     }
-
     return MovieListModel(movieList: movieList);
   }
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [movieList];
 }
