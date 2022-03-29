@@ -110,7 +110,7 @@ class _BookingPageState extends State<BookingPage> {
                             underline: Container(
                               height: 0,
                             ),
-                            items: <String>['One', 'Two', 'Free', 'Four']
+                            items: <String>['One', 'Two', 'Three', 'Four']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -118,11 +118,11 @@ class _BookingPageState extends State<BookingPage> {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              print(newValue);
                               setState(() {
-                                dropdownValue:
+                                dropdownValue =
                                 newValue!;
                               });
+
                             },
                           ),
                         ),
