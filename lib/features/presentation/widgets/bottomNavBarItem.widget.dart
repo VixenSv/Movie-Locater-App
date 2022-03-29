@@ -14,7 +14,7 @@ class BottomNavBarItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () => this.onPress,
+      onPressed: () => {this.onPress()},
       minWidth: 40,
       child: Column(
         children: <Widget>[

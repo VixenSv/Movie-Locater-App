@@ -65,8 +65,11 @@ class _HomePageState extends State<HomePage> {
         itemList: BNBItemList,
       ),
       body: SafeArea(
-        child: Expanded(
-          child: this.bodyContent,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Expanded(
+            child: this.bodyContent,
+          ),
         ),
       ),
     );
