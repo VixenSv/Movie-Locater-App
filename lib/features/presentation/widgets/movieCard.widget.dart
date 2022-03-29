@@ -4,17 +4,8 @@ import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 class MovieCardWidget extends StatelessWidget {
   final onPressed;
   MovieEntity movieEntity;
-  String movieName = 'Movie Name';
-  String imagePath = '';
-  String movieDescription = '';
 
-  MovieCardWidget(
-      {Key? key,
-      this.onPressed,
-      // required this.imagePath,
-      // required this.movieName,
-      // required this.movieDescription
-      required this.movieEntity})
+  MovieCardWidget({Key? key, this.onPressed, required this.movieEntity})
       : super(key: key);
 
   @override
@@ -22,7 +13,7 @@ class MovieCardWidget extends StatelessWidget {
     return MaterialButton(
       onPressed: () => print(this.movieEntity.movieID),
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(1.0),
         child: Container(
           height: MediaQuery.of(context).size.height / 5,
           child: MaterialButton(
@@ -65,7 +56,7 @@ class MovieCardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
-                              height: 5,
+                              height: 20,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,7 +73,15 @@ class MovieCardWidget extends StatelessWidget {
                               height: 10.0,
                             ),
                             Expanded(
-                                child: Text(this.movieEntity.movieDescription,
+                                child: Text(
+                                    this.movieEntity.movieDescription.substring(
+                                        0,
+                                        (this
+                                                    .movieEntity
+                                                    .movieDescription
+                                                    .length /
+                                                3)
+                                            .toInt()),
                                     style: TextStyle(
                                       color: Colors.white,
                                     )))

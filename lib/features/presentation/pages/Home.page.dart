@@ -13,9 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-   Widget bodyContent;
-   String appBarTitle;
+  Widget bodyContent;
+  String appBarTitle;
 
   _HomePageState(this.bodyContent, this.appBarTitle);
   @override
@@ -66,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         itemList: BNBItemList,
       ),
       body: SafeArea(
-        child: Center(
+        child: Expanded(
           child: this.bodyContent,
         ),
       ),

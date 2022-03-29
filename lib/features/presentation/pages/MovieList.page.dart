@@ -18,7 +18,7 @@ class MovieListPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(1.0),
           child: Column(
             children: <Widget>[
               SizedBox(
