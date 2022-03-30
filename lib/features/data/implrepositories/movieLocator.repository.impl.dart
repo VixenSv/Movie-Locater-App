@@ -16,8 +16,8 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
   @override
   Future<Either<Failure, MovieListEntity>> getMovieList() async {
     try {
-      final imageModel = await remoteDataSource.getImageList();
-      return Right(await MovieListEntity.toMovieListEntity(imageModel));
+      return Right(await MovieListEntity.toMovieListEntity(
+          await remoteDataSource.getMovieList()));
     } on ServerException {
       return Left(ServerFailure());
     }

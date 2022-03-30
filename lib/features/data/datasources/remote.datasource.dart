@@ -11,7 +11,7 @@ import '../models/MovieList.model.dart';
 import '../models/movie.model.dart';
 
 abstract class RemoteDataSource {
-  Future<MovieListModel> getImageList();
+  Future<MovieListModel> getMovieList();
   Future<MovieModel> saveUrl(MovieModel movieModel);
   Future<MovieModel> uploadMovie(MovieModel movieModel);
 }
@@ -63,7 +63,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<MovieListModel> getImageList() async {
+  Future<MovieListModel> getMovieList() async {
     CollectionReference collectionReference =
         await FirebaseFirestore.instance.collection('movies');
 
@@ -71,11 +71,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
     final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('movies').get();
-    movieList = await snapshot.docs;
+    movieList = snapshot.docs;
     movieListModel = await movieListModel.toMovieModel(movieList!);
-    MovieListEntity mle =
-        new MovieListEntity(movieList: movieListModel.movieList!);
-    print(movieListModel.movieList!.map((e) => e.movieID));
     return movieListModel;
   }
 }

@@ -80,7 +80,7 @@ class _SingleMoviePageState extends State<SingleMoviePage> {
                   Column(
                     children: this
                         .movieEntity
-                        .theatherList
+                        .theaterList
                         .map((e) => TheaterDetailCardWidget(
                               showTimeList: showTimeList,
                               movieEntity: this.movieEntity,

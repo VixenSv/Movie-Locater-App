@@ -70,7 +70,7 @@ class MovieList extends StatelessWidget {
     String movieImage = _movieList.movieList[_index].movieImage;
     String movieName = _movieList.movieList[_index].movieName;
     String movieDescription = _movieList.movieList[_index].movieDescription;
-    List<TheaterModel> theatherList = _movieList.movieList[_index].theatherList;
+    List<TheaterModel> theatherList = _movieList.movieList[_index].theaterList;
     return Expanded(
         child: MovieCardWidget(
       movieEntity: new MovieEntity(
@@ -78,7 +78,7 @@ class MovieList extends StatelessWidget {
           movieID: movieID,
           movieName: movieName,
           movieDescription: movieDescription,
-          theatherList: theatherList),
+          theaterList: theatherList),
     ));
   }
 }

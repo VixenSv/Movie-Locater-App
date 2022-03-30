@@ -16,7 +16,7 @@ class MovieModel extends MovieEntity {
             movieID: movieId,
             movieName: movieName,
             movieDescription: movieDescription,
-            theatherList: theaterList,
+            theaterList: theaterList,
             movieImage: movieImage);
 
   //method to convert picked Image into a image model
