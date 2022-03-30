@@ -89,12 +89,11 @@ class MovieCardWidget extends StatelessWidget {
                                                       .movieDescription
                                                       .length >
                                                   100
-                                              ? (this
+                                              ? this
                                                           .movieEntity
                                                           .movieDescription
-                                                          .length /
-                                                      3)
-                                                  .toInt()
+                                                          .length ~/
+                                                      3
                                               : this
                                                   .movieEntity
                                                   .movieDescription

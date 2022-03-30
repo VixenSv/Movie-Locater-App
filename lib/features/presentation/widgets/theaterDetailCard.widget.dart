@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
+import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
 
 class TheaterDetailCardWidget extends StatelessWidget {
   const TheaterDetailCardWidget(
@@ -49,23 +50,16 @@ class TheaterDetailCardWidget extends StatelessWidget {
                   )
                 ],
               )),
-              Container(
-                child: MaterialButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(
-                            BookingPage(movieEntity: this.movieEntity),
-                            'Book Now')),
-                  ),
-                  color: Color(0xffB92121),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Text(
-                    'Book Now',
-                    style: TextStyle(color: Colors.white),
-                  ),
+              RedButtonWidget(
+                movieEntity: movieEntity,
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                          BookingPage(movieEntity: this.movieEntity),
+                          'Book Now')),
                 ),
+                label: 'Book Now',
               )
             ],
           ),
