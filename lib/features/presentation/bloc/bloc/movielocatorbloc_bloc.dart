@@ -26,7 +26,8 @@ class MovielocatorblocBloc
   Future<void> _onGetMovieList(
       GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
     final failureOrImageEntity = await getMovieList(NoParams());
-    failureOrImageEntity.map((r) => print(r.movieList[0].movieName));
+    // failureOrImageEntity.map((r) => print(r.movieList[0].theatherList.length));
+    // failureOrImageEntity.map((r) => print(r.movieList[1].movieID));
     failureOrImageEntity.fold(
       (failure) => Error(
         message: _mapFailureToMessage(failure),

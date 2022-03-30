@@ -7,12 +7,11 @@ import 'package:image_picker/image_picker.dart';
 class ShowModel extends ShowEntity {
   ShowModel({
     required String showTime,
-    required MovieEntity movieEntity,
-  }) : super(movieEntity: movieEntity, showTime: showTime);
+  }) : super(showTime: showTime);
 
   //method to convert picked Image into a image model
   static Future<ShowModel> fromFile(
-      {required String showTime, required MovieEntity movieEntity}) async {
-    return await ShowModel(movieEntity: movieEntity, showTime: showTime);
+      {required String showTime, }) async {
+    return await ShowModel( showTime: showTime);
   }
 }

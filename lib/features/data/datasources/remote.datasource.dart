@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dart';
 
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
@@ -53,7 +54,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         movieDescription: '',
         movieId: 0,
         movieName: '',
-        theaterIdList: [],
+        theaterList: [],
       );
     } else {
       print('No path Received');
@@ -67,22 +68,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await FirebaseFirestore.instance.collection('movies');
 
     MovieListModel movieListModel = MovieListModel();
+
     final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('movies').get();
-    //     .then((QuerySnapshot querySnapshot) async {
-    //   querySnapshot.docs.forEach((doc) {
-    //     print(
-    //         " +++++++++++++++++++++++++++++++++++ collection Reference ++++++++++++++++++++++++++++++++++++++");
-    //     print(doc['movieName']);
-    //     print(doc['movieId']);
-    //     print(doc['movieDescription']);
-    //     print(doc['movieImage']);
-    //   });
-    //   return querySnapshot;
-    // });
-
     movieList = await snapshot.docs;
     movieListModel = await movieListModel.toMovieModel(movieList!);
+    MovieListEntity mle =
+        new MovieListEntity(movieList: movieListModel.movieList!);
+    print(movieListModel.movieList!.map((e) => e.movieID));
     return movieListModel;
   }
 }

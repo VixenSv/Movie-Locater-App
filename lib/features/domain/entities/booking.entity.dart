@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie_locator_app/features/data/models/booking.model.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 class BookingEntity extends Equatable {
   final MovieEntity movieEntity;

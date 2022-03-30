@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_locator_app/features/data/models/theater.model.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 
 import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_bloc.dart';
@@ -68,7 +70,7 @@ class MovieList extends StatelessWidget {
     String movieImage = _movieList.movieList[_index].movieImage;
     String movieName = _movieList.movieList[_index].movieName;
     String movieDescription = _movieList.movieList[_index].movieDescription;
-    List<dynamic> theatherIdList = _movieList.movieList[_index].theatherIdList;
+    List<TheaterModel> theatherList = _movieList.movieList[_index].theatherList;
     return Expanded(
         child: MovieCardWidget(
       movieEntity: new MovieEntity(
@@ -76,7 +78,7 @@ class MovieList extends StatelessWidget {
           movieID: movieID,
           movieName: movieName,
           movieDescription: movieDescription,
-          theatherIdList: theatherIdList),
+          theatherList: theatherList),
     ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import '../../domain/entities/movie.entity.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -7,17 +7,15 @@ import '../../data/models/movie.model.dart';
 
 class ShowEntity extends Equatable {
   final String showTime;
-  final MovieEntity movieEntity;
+
 
   ShowEntity(
       {required this.showTime,
-      required this.movieEntity,
       })
       : super();
 
   static Future<ShowEntity> toImageEntity(ShowModel showModel) async {
     return await ShowEntity(
-      movieEntity: showModel.movieEntity,
       showTime: showModel.showTime
     );
   }
@@ -25,7 +23,6 @@ class ShowEntity extends Equatable {
   static Future<ShowModel> fromMovieEntity(
       ShowEntity showEntity) async {
     return await ShowModel(
-      movieEntity: showEntity.movieEntity,
       showTime: showEntity.showTime
     );
   }
@@ -33,7 +30,7 @@ class ShowEntity extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [
-        this.movieEntity,
+
         this.showTime,
         
       ];
