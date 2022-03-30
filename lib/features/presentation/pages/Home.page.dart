@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_event.dart';
 import 'package:movie_locator_app/features/presentation/widgets/bottomNavigationBar.widget.dart';
 
 import '../widgets/bnbItem.widget.dart';
@@ -26,13 +27,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var BNBItemList = [
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.list,
           label: 'Movie List',
-          onPressed: () => setState(() {
-                this.appBarTitle = 'Movie List';
-                this.bodyContent = MovieListPage();
-              })),
+          onPressed: () => {
+                setState(() {
+                  this.appBarTitle = 'Movie List';
+                  this.bodyContent = MovieListPage();
+                })
+              }),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.airplane_ticket,
           label: 'Bookings',
           onPressed: () => setState(() {
@@ -40,6 +45,7 @@ class _HomePageState extends State<HomePage> {
                 // this.bodyContent = BookingsPage();
               })),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.feedback,
           label: 'Feedbacks',
           onPressed: () => setState(() {
@@ -47,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                 // this.bodyContent = FeedbacksPage();
               })),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.account_circle,
           label: 'Profile',
           onPressed: () => setState(() {

@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
+import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
 import '../../../../core/error/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../domain/entities/movieList.enitity.dart';
@@ -20,20 +23,56 @@ class MovielocatorblocBloc
   MovielocatorblocBloc({required this.getMovieList})
       : super(MovieListLoading()) {
     on<GetMovieListEvent>(_onGetMovieList);
+    on<BookingEvent>(_onBookingEvent);
+    on<GoHomeEvent>(_onGoHomeEvent);
     //add your methods here
   }
 
-  Future<void> _onGetMovieList(
-      GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
+  get movieEntity => null;
+
+  Future<void> _onGoHomeEvent(
+      GoHomeEvent event, Emitter<MovielocatorblocState> emit) async {
     final failureOrImageEntity = await getMovieList(NoParams());
-    // failureOrImageEntity.map((r) => print(r.movieList.map((e) => e.theaterList.length)));
-    // failureOrImageEntity.map((r) => print(r.movieList[1].movieID));
     failureOrImageEntity.fold(
       (failure) => Error(
         message: _mapFailureToMessage(failure),
       ),
       (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
     );
+  }
+
+   Future<void> _onGetMovieList(
+      GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await getMovieList(NoParams());
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
+    );
+    // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
+  }
+
+  Future<void> _onBookingEvent(
+      BookingEvent event, Emitter<MovielocatorblocState> emit) async {
+    List<String> list = event.theaterEntity.showEntityList.cast();
+    List<String> clist = event.theaterEntity.availbleClasses.cast();
+    Navigator.pushReplacement(
+      event.context,
+      MaterialPageRoute(
+          builder: (context) => HomePage(
+              BookingPage(
+                dropdownValue: list[0],
+                selectedClass: clist[0],
+              ),
+              'Book Now')),
+    );
+
+    emit(BookingState(
+        movieEntity: event.movieEntity,
+        theaterEntity: event.theaterEntity,
+        showTimeList: list,
+        classList: clist));
     // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
   }
 

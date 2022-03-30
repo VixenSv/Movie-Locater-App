@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 import '../../../domain/entities/movieList.enitity.dart';
 
@@ -42,4 +44,22 @@ class MovieListLoaded extends MovielocatorblocState {
   @override
   // TODO: implement props
   List<Object?> get props => [listEntity];
+}
+
+class BookingState extends MovielocatorblocState {
+  final MovieEntity movieEntity;
+  final TheaterEntity theaterEntity;
+  final List<String> showTimeList;
+  final List<String> classList;
+
+   BookingState(
+      {required this.movieEntity,
+      required this.theaterEntity,
+      required this.showTimeList,
+      required this.classList
+     });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [this.movieEntity, this.theaterEntity, this.showTimeList, this.classList];
 }

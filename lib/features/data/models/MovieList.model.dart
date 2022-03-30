@@ -14,22 +14,6 @@ class MovieListModel extends Equatable {
 
   Future<MovieListModel> toMovieModel(List<DocumentSnapshot> list) async {
     List<MovieModel> movieList = new List.empty(growable: true);
-    List<TheaterModel> theaterList = new List.empty(growable: true);
-
-    String theaterName = '';
-    int theaterId = 0;
-    String theaterImage = '';
-    List<dynamic> availbleClasses = [];
-    String theaterLocationLink = '';
-    List<dynamic> showEntityList = [];
-
-    TheaterModel tm = new TheaterModel(
-        theaterName: theaterName,
-        theaterId: theaterId,
-        theaterImage: theaterImage,
-        availbleClasses: availbleClasses,
-        theaterLocationLink: theaterLocationLink,
-        showEntityList: showEntityList);
 
     String movieName = '';
     String movieImage = '';
@@ -44,44 +28,83 @@ class MovieListModel extends Equatable {
         theaterList: theaterList2,
         movieImage: movieImage);
 
-    for (DocumentSnapshot i in list) {
-      theaterList.clear();
-      List<dynamic> listRef = await i.get('theaterList');
-      Set<TheaterModel> theaterSet;
-      for (var j in listRef) {
-        final doc = await FirebaseFirestore.instance.doc('theaters/' + j.id);
-        await doc.get().then((value) async => {
-              theaterName = value.get('theaterName'),
-              theaterId = value.get('theaterId'),
-              theaterImage = value.get('theaterImage'),
-              availbleClasses = value.get('availbleClasses'),
-              theaterLocationLink = value.get('theaterLocationLink'),
-              showEntityList = value.get('showTimeList'),
+    //   List<dynamic> listRef = await i.get('theaterList');
+    // for (var j in listRef) {
+    //   final doc = FirebaseFirestore.instance.doc('theaters/' + j.id);
+    //   await doc.get().then((value) async => {
+    //         theaterName = value.get('theaterName'),
+    //         theaterId = value.get('theaterId'),
+    //         theaterImage = value.get('theaterImage'),
+    //         availbleClasses = value.get('availbleClasses'),
+    //         theaterLocationLink = value.get('theaterLocationLink'),
+    //         showEntityList = value.get('showTimeList'),
+    //         tm = new TheaterModel(
+    //             theaterName: theaterName,
+    //             theaterId: theaterId,
+    //             theaterImage: theaterImage,
+    //             availbleClasses: availbleClasses,
+    //             theaterLocationLink: theaterLocationLink,
+    //             showEntityList: showEntityList),
+    //       });
+    //   theaterList.add(tm);
+    // }
 
-              tm = new TheaterModel(
-                  theaterName: theaterName,
-                  theaterId: theaterId,
-                  theaterImage: theaterImage,
-                  availbleClasses: availbleClasses,
-                  theaterLocationLink: theaterLocationLink,
-                  showEntityList: showEntityList),
-            });
-        theaterList.add(tm);
-      }
+    for (DocumentSnapshot i in list) {
+      // theaterList.clear();
       movieName = i.get('movieName');
       movieImage = i.get('movieImage');
       movieDescription = i.get('movieDescription');
       movieID = i.get('movieId');
-      theaterList2 = theaterList;
+      theaterList2 = await getTheaterModel(i);
       mm = new MovieModel(
           movieId: movieID,
           movieName: movieName,
-          movieDescription: movieImage,
+          movieDescription: movieDescription,
           theaterList: theaterList2,
           movieImage: movieImage);
       movieList.add(mm);
     }
     return MovieListModel(movieList: movieList);
+  }
+
+  Future<List<TheaterModel>> getTheaterModel(DocumentSnapshot ds) async {
+    List<TheaterModel> theaterList = new List.empty(growable: true);
+    String theaterName = '';
+    int theaterId = 0;
+    String theaterImage = '';
+    List<dynamic> availbleClasses = [];
+    String theaterLocationLink = '';
+    List<dynamic> showEntityList = [];
+
+    TheaterModel tm = new TheaterModel(
+        theaterName: theaterName,
+        theaterId: theaterId,
+        theaterImage: theaterImage,
+        availbleClasses: availbleClasses,
+        theaterLocationLink: theaterLocationLink,
+        showEntityList: showEntityList);
+    List<dynamic> listRef = await ds.get('theaterList');
+    for (var j in listRef) {
+      final doc = FirebaseFirestore.instance.doc('theaters/' + j.id);
+      await doc.get().then((value) async => {
+            theaterName = value.get('theaterName'),
+            theaterId = value.get('theaterId'),
+            theaterImage = value.get('theaterImage'),
+            availbleClasses = value.get('availbleClasses'),
+            theaterLocationLink = value.get('theaterLocationLink'),
+            showEntityList = value.get('showTimeList'),
+            tm = new TheaterModel(
+                theaterName: theaterName,
+                theaterId: theaterId,
+                theaterImage: theaterImage,
+                availbleClasses: availbleClasses,
+                theaterLocationLink: theaterLocationLink,
+                showEntityList: showEntityList),
+          });
+      theaterList.add(tm);
+    }
+
+    return theaterList;
   }
 
   @override
