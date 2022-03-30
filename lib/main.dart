@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_locator_app/features/data/datasources/remote.datasource.dart';
 import 'package:movie_locator_app/features/data/implrepositories/movieLocator.repository.impl.dart';
 import 'package:movie_locator_app/features/domain/irepositories/movieLocator.repository.dart';
+import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getMovieList.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => MovielocatorblocBloc(
                   getMovieList: GetMovieList(MovieLocatorRepositoryImpl(
+                      remoteDataSource: RemoteDataSourceImpl())), confirmBooking: ConfirmBooking(MovieLocatorRepositoryImpl(
                       remoteDataSource: RemoteDataSourceImpl())))
                 ..add(GetMovieListEvent()))
         ],

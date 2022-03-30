@@ -10,8 +10,7 @@ class BookingEntity extends Equatable {
   final int bookingId;
   final TheaterEntity theaterEntity;
   final String selectedClass;
-  final double perTicketPrice;
-  final double totalPrice;
+
 
   BookingEntity(
       {required this.bookingId,
@@ -19,34 +18,30 @@ class BookingEntity extends Equatable {
       required this.selectedShowTime,
       required this.numberofTickets,
       required this.theaterEntity,
-      required this.selectedClass,
-      required this.perTicketPrice,
-      required this.totalPrice})
+      required this.selectedClass,})
       : super();
 
-  static Future<BookingEntity> toMovieEntity(BookingModel bookingModel) async {
+  static Future<BookingEntity> toBookingEntity(BookingModel bookingModel) async {
     return await BookingEntity(
         bookingId: bookingModel.bookingId,
         movieEntity: bookingModel.movieEntity,
         numberofTickets: bookingModel.numberofTickets,
-        perTicketPrice: bookingModel.perTicketPrice,
         selectedClass: bookingModel.selectedClass,
         selectedShowTime: bookingModel.selectedShowTime,
-        theaterEntity: bookingModel.theaterEntity,
-        totalPrice: bookingModel.totalPrice);
+        theaterEntity: bookingModel.theaterEntity,);
   }
 
-  static Future<BookingModel> fromMovieEntity(
+  static Future<BookingModel> fromBookingEntity(
       BookingEntity bookingEntity) async {
     return await BookingModel(
         bookingId: bookingEntity.bookingId,
         movieEntity: bookingEntity.movieEntity,
         numberofTickets: bookingEntity.numberofTickets,
-        perTicketPrice: bookingEntity.perTicketPrice,
+
         selectedClass: bookingEntity.selectedClass,
         selectedShowTime: bookingEntity.selectedShowTime,
         theaterEntity: bookingEntity.theaterEntity,
-        totalPrice: bookingEntity.totalPrice);
+);
   }
 
   @override
@@ -55,10 +50,8 @@ class BookingEntity extends Equatable {
         this.bookingId,
         this.movieEntity,
         this.numberofTickets,
-        this.perTicketPrice,
         this.selectedShowTime,
         this.theaterEntity,
-        this.totalPrice,
         this.selectedClass
       ];
 }

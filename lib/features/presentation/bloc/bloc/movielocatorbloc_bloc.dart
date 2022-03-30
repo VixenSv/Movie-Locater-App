@@ -3,9 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/MovieList.page.dart';
 import '../../../../core/error/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../domain/entities/movieList.enitity.dart';
@@ -19,12 +21,15 @@ const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 class MovielocatorblocBloc
     extends Bloc<MovielocatorblocEvent, MovielocatorblocState> {
   GetMovieList getMovieList;
+  ConfirmBooking confirmBooking;
 
-  MovielocatorblocBloc({required this.getMovieList})
+  MovielocatorblocBloc(
+      {required this.getMovieList, required this.confirmBooking})
       : super(MovieListLoading()) {
     on<GetMovieListEvent>(_onGetMovieList);
     on<BookingEvent>(_onBookingEvent);
     on<GoHomeEvent>(_onGoHomeEvent);
+    on<ConfirmBookingEvent>(_onConfirmBookingEvent);
     //add your methods here
   }
 
@@ -41,7 +46,24 @@ class MovielocatorblocBloc
     );
   }
 
-   Future<void> _onGetMovieList(
+  Future<void> _onConfirmBookingEvent(
+      ConfirmBookingEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await confirmBooking(event.bookingEntity);
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoading()),
+    );
+
+    Navigator.pushReplacement(
+      event.context,
+      MaterialPageRoute(
+          builder: (context) => HomePage(MovieListPage(), 'Movie List')),
+    );
+  }
+
+  Future<void> _onGetMovieList(
       GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
     final failureOrImageEntity = await getMovieList(NoParams());
     failureOrImageEntity.fold(

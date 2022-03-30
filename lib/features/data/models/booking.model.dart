@@ -10,17 +10,16 @@ class BookingModel extends BookingEntity {
       required int numberofTickets,
       required TheaterEntity theaterEntity,
       required String selectedClass,
-      required double perTicketPrice,
-      required double totalPrice,
+
       required int bookingId
   }) : super(
             movieEntity: movieEntity,
             numberofTickets: numberofTickets,
-            perTicketPrice: perTicketPrice,
+
             selectedClass: selectedClass,
             selectedShowTime: selectedShowTime, 
             theaterEntity: theaterEntity,
-            totalPrice: totalPrice,
+
             bookingId: bookingId);
 
   //method to convert picked Image into a image model
@@ -37,10 +36,10 @@ class BookingModel extends BookingEntity {
       bookingId: bookingId,
         movieEntity: movieEntity,
         numberofTickets: numberofTickets,
-        perTicketPrice: perTicketPrice,
+
         selectedClass: selectedClass,
         selectedShowTime: selectedShowTime,
         theaterEntity: theaterEntity,
-        totalPrice: totalPrice);
+      );
   }
 }

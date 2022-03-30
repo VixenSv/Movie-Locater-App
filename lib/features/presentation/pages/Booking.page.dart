@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
@@ -11,11 +12,9 @@ class BookingPage extends StatefulWidget {
   final String dropdownValue;
   final String selectedClass;
 
-  const BookingPage({
-    Key? key,
-    required this.dropdownValue,
-    required this.selectedClass
-  }) : super(key: key);
+  const BookingPage(
+      {Key? key, required this.dropdownValue, required this.selectedClass})
+      : super(key: key);
 
   @override
   State<BookingPage> createState() => _BookingPageState(
@@ -115,8 +114,6 @@ class _BookingPageState extends State<BookingPage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: DropdownButton<String>(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
                                   dropdownColor: Color(0xff484848),
                                   value: this.dropdownValue,
                                   icon: const Icon(Icons.arrow_drop_down),
@@ -213,8 +210,6 @@ class _BookingPageState extends State<BookingPage> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: DropdownButton<String>(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
                                   dropdownColor: Color(0xff484848),
                                   value: this.selectedClass,
                                   icon: const Icon(Icons.arrow_drop_down),
@@ -251,7 +246,25 @@ class _BookingPageState extends State<BookingPage> {
                             children: [
                               RedButtonWidget(
                                   movieEntity: state.movieEntity,
-                                  onPressed: () => print('Clicked!'),
+                                  onPressed: () => {
+                                        context
+                                            .read<MovielocatorblocBloc>()
+                                            .add(ConfirmBookingEvent(
+                                                context: context,
+                                                bookingEntity:
+                                                    new BookingEntity(
+                                                        bookingId: 0,
+                                                        movieEntity:
+                                                            state.movieEntity,
+                                                        selectedShowTime:
+                                                            this.dropdownValue,
+                                                        numberofTickets: this
+                                                            .numberOfTickets,
+                                                        theaterEntity:
+                                                            state.theaterEntity,
+                                                        selectedClass:
+                                                            selectedClass)))
+                                      },
                                   label: 'Confirm Booking'),
                             ],
                           ),
