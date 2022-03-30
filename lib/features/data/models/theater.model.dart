@@ -1,4 +1,4 @@
-import 'package:movie_locator_app/features/domain/entities/show.entity.dart';
+
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 import '../../domain/entities/movie.entity.dart';
@@ -11,7 +11,7 @@ class TheaterModel extends TheaterEntity {
     required String theaterImage,
     required List<dynamic> availbleClasses,
     required String theaterLocationLink,
-    required List<ShowEntity> showEntityList,
+    required List<String> showEntityList,
   }) : super(
             availbleClasses: availbleClasses,
             showEntityList: showEntityList,
@@ -27,7 +27,7 @@ class TheaterModel extends TheaterEntity {
     String theaterImage,
     List<dynamic> availbleClasses,
     String theaterLocationLink,
-    List<ShowEntity> showEntityList,
+    List<String> showEntityList,
   ) async {
     return await TheaterModel(
         availbleClasses: availbleClasses,

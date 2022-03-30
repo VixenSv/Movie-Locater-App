@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie_locator_app/features/data/models/theater.model.dart';
-import 'package:movie_locator_app/features/domain/entities/show.entity.dart';
+
 
 import '../../data/models/movie.model.dart';
 
@@ -10,7 +10,7 @@ class TheaterEntity extends Equatable {
   final String theaterImage;
   final List<dynamic> availbleClasses;
   final String theaterLocationLink;
-  final List<ShowEntity> showEntityList;
+  final List<String> showEntityList;
 
   TheaterEntity(
       {required this.theaterName,
