@@ -12,3 +12,13 @@ class GetMovieListEvent extends MovielocatorblocEvent {
   List<Object?> get props => [];
 }
 
+class AddMovieEvent extends MovielocatorblocEvent {
+  
+  MovieEntity movieEntity;
+
+  AddMovieEvent({required this.movieEntity});
+
+  @override
+  List<Object> get props => [movieEntity];
+
+}
