@@ -17,7 +17,7 @@ class MovieEntity extends Equatable {
       required this.theatherIdList})
       : super();
 
-  static Future<MovieEntity> toImageEntity(MovieModel movieModel) async {
+  static Future<MovieEntity> toMovieEntity(MovieModel movieModel) async {
     return await MovieEntity(
         movieDescription: movieModel.movieDescription,
         movieID: movieModel.movieID,
