@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "696503683823",
-    "project_id": "movielocator-3a7c7",
-    "storage_bucket": "movielocator-3a7c7.appspot.com"
+    "project_number": "467883541759",
+    "project_id": "movie-locator-fc578",
+    "storage_bucket": "movie-locator-fc578.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:696503683823:android:a107d2cc893897977ca91a",
+        "mobilesdk_app_id": "1:467883541759:android:983346c05a39cf8b28f8ca",
         "android_client_info": {
-          "package_name": "com.example.movie_locator_app"
+          "package_name": "com.example.movie_locator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "696503683823-7rf7mdnjehi3a98f5ko5id4l7p2bqb8f.apps.googleusercontent.com",
+          "client_id": "467883541759-e9tl2fadm7d8r0sag4tbqugdbi9g1rqe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYpYQUZmk_d5ahhN7YmmN3ixatEkl5QWA"
+          "current_key": "AIzaSyC7QceyU94vwEcZkH-XX4B4xUNDVmnD3MA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "696503683823-7rf7mdnjehi3a98f5ko5id4l7p2bqb8f.apps.googleusercontent.com",
+              "client_id": "467883541759-e9tl2fadm7d8r0sag4tbqugdbi9g1rqe.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
