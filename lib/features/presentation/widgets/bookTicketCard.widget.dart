@@ -1,7 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'dart:ffi';
+import 'dart:html';
 
-class BookTicketCard extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_locator_app/core/error/faliure.dart';
+import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
+
+// class BookTicketCardWidget extends StatelessWidget {
+//   const BookTicketCardWidget({ Key? key }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+      
+//     );
+//   }
+// }
+
+class BookTicketCardWidget extends StatelessWidget {
   final onPressed;
   MovieEntity movieEntity;
   //final class = ['class A', 'class B', 'class C'];
