@@ -173,7 +173,7 @@ class AddTheaterPage extends StatefulWidget {
               ),
             ),
           );
-          
+        
         }
          
 }

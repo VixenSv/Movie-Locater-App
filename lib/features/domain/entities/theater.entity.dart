@@ -52,4 +52,6 @@ class TheaterEntity extends Equatable {
         this.availbleClasses,
         this.showEntityList
       ];
+     
+     
 }

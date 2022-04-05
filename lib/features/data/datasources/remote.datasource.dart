@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:movie_locator_app/features/data/models/theater.model.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
+import 'package:movie_locator_app/features/domain/usecases/addTheater.usecase.dart';
 
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
@@ -13,6 +16,7 @@ abstract class RemoteDataSource {
   Future<MovieListModel> getImageList();
   Future<MovieModel> saveUrl(MovieModel movieModel);
   Future<MovieModel> uploadMovie(MovieModel movieModel);
+  Future<TheaterModel> addTheater(TheaterEntity entity);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -84,5 +88,43 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     movieList = await snapshot.docs;
     movieListModel = await movieListModel.toMovieModel(movieList!);
     return movieListModel;
+  }
+
+  @override
+  Future<TheaterModel> addTheater(TheaterEntity entity) async{
+     
+    CollectionReference theaters =
+        FirebaseFirestore.instance.collection('bookings');
+
+    await theaters
+        .add({          
+          'availableClasses': {
+            entity.availbleClasses
+          },
+          'showTimeList': {
+            entity.showEntityList
+          },
+          'theaterId': entity.theaterId,
+          'theaterImage': entity.theaterImage,
+          'theaterLocationLink': entity.theaterLocationLink,
+          'theaterName': entity.theaterName,           
+        })
+        .then((value) async => {
+              // send_email = Email(
+              //   body: 'Booking Reference: '+value.id,
+              //   subject: 'subject of email',
+              //   recipients: ['vchamindu@gmail.com'],
+              //   cc: [],
+              //   bcc: [],
+              //   attachmentPaths: [],
+              //   isHTML: false,
+              // ),
+              // await FlutterEmailSender.send(send_email)
+
+         
+            })
+        .catchError((error) => print("Failed to add booking: $error"));
+
+    return TheaterEntity.fromMovieEntity(entity);
   }
 }
