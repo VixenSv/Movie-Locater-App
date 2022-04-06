@@ -77,6 +77,7 @@ class BookingBloc extends Bloc<BookingBlocEvent, BookingBlocState> {
 
   Future<void> _onDeleteBookingEvent(
       DeleteBookingEvent event, Emitter<BookingBlocState> emit) async {
+    emit(BookingDeleting());
     final failureOrImageEntity = await deleteBooking(event.bookingEntity);
     failureOrImageEntity.fold(
       (failure) => Error(

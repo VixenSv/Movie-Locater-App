@@ -8,6 +8,11 @@ import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbl
 import 'package:movie_locator_app/features/presentation/widgets/blueButton.widget.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
 
+import '../bloc/bloc/movielocatorbloc_bloc.dart';
+import '../bloc/bloc/movielocatorbloc_event.dart';
+import 'Home.page.dart';
+import 'MovieList.page.dart';
+
 class ViewBookingPage extends StatefulWidget {
   const ViewBookingPage({
     Key? key,
@@ -379,12 +384,56 @@ class _ViewBookingPageState extends State<ViewBookingPage> {
             ],
           ));
         } else if (state is BookingUpdating) {
-          Center(
+          return Center(
             child: CircularProgressIndicator(),
           );
         } else if (state is BookingUpdated) {
-          Center(
-            child: Text('Updated Successfully'),
+          return Center(
+            child: AlertDialog(
+              title: Text('Booking Update'),
+              content: Text('Updated Successfully! navigating back to home page.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    context.read<MovielocatorblocBloc>().add(
+                        GoHomeEvent());
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage(MovieListPage(), 'Movie List')),
+                    );
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }else if(state is BookingDeleting){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }else if(state is BookingDeleted){
+          return Center(
+            child: AlertDialog(
+              title: Text('Delete'),
+              content: Text('Deleted Successfully! navigating back to home page.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    context.read<MovielocatorblocBloc>().add(
+                        GoHomeEvent());
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage(MovieListPage(), 'Movie List')),
+                    );
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
           );
         }
         return Container(

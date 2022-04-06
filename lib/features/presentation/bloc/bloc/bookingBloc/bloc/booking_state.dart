@@ -49,6 +49,11 @@ class BookingUpdated extends BookingBlocState {
   List<Object?> get props => [this.bookingEntity];
 }
 
+class BookingDeleting extends BookingBlocState {
+  @override
+  List<Object?> get props => [];
+}
+
 class BookingDeleted extends BookingBlocState {
   @override
   List<Object?> get props => [];

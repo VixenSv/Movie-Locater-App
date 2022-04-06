@@ -41,6 +41,8 @@ class MovielocatorblocBloc
       ),
       (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
     );
+
+
   }
 
   Future<void> _onConfirmBookingEvent(
