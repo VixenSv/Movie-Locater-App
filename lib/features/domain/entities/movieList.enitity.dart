@@ -11,7 +11,7 @@ class MovieListEntity extends Equatable {
 
   static Future<MovieListEntity> toMovieListEntity(
       MovieListModel movieListModel) async {
-    return await MovieListEntity(movieList: movieListModel.movieList);
+    return MovieListEntity(movieList: movieListModel.movieList!);
   }
 
   @override

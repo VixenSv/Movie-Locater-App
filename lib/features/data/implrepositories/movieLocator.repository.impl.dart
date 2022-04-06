@@ -1,3 +1,4 @@
+import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dart';
 import 'package:movie_locator_app/core/error/faliure.dart';
 import 'package:dartz/dartz.dart';
@@ -17,8 +18,51 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
   @override
   Future<Either<Failure, MovieListEntity>> getMovieList() async {
     try {
-      final imageModel = await remoteDataSource.getImageList();
-      return Right(await MovieListEntity.toMovieListEntity(imageModel));
+      return Right(await MovieListEntity.toMovieListEntity(
+          await remoteDataSource.getMovieList()));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> addBooking(
+      BookingEntity entity) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.addBooking(entity)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> getBookingFromRef(String ref) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.getBookingFromRef(ref)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> updateBookingData(
+      BookingEntity entity) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.updateBooking(entity)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> deleteBookingData(
+      BookingEntity entity) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.deleteBooking(entity)));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -1,9 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:movie_locator_app/core/error/faliure.dart';
+import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 abstract class MovieLocatorRepository {
   Future<Either<Failure, MovieListEntity>> getMovieList();
   Future<Either<Failure, TheaterEntity>> addTheater(TheaterEntity entity);
+  Future<Either<Failure, BookingEntity>> addBooking(BookingEntity entity);
+  Future<Either<Failure, BookingEntity>> getBookingFromRef(String ref);
+  Future<Either<Failure, BookingEntity>> updateBookingData(BookingEntity entity);
+  Future<Either<Failure, BookingEntity>> deleteBookingData(BookingEntity entity);
 }

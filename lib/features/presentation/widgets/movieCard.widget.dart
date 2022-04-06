@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/singleMovie.page.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final onPressed;
@@ -11,9 +13,14 @@ class MovieCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () => print(this.movieEntity.movieID),
+      onPressed: () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(
+                SingleMoviePage(movieEntity: this.movieEntity), 'Movie')),
+      ),
       child: Padding(
-        padding: EdgeInsets.all(1.0),
+        padding: EdgeInsets.only(bottom: 10),
         child: Container(
           height: MediaQuery.of(context).size.height / 5,
           child: MaterialButton(
@@ -64,8 +71,9 @@ class MovieCardWidget extends StatelessWidget {
                                 Expanded(
                                   child: Text(this.movieEntity.movieName,
                                       style: TextStyle(
-                                        color: Colors.white,
-                                      )),
+                                          color: Color(0xffB92121),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
                                 ),
                               ],
                             ),
@@ -75,13 +83,22 @@ class MovieCardWidget extends StatelessWidget {
                             Expanded(
                                 child: Text(
                                     this.movieEntity.movieDescription.substring(
-                                        0,
-                                        (this
-                                                    .movieEntity
-                                                    .movieDescription
-                                                    .length /
-                                                3)
-                                            .toInt()),
+                                          0,
+                                          this
+                                                      .movieEntity
+                                                      .movieDescription
+                                                      .length >
+                                                  100
+                                              ? this
+                                                          .movieEntity
+                                                          .movieDescription
+                                                          .length ~/
+                                                      3
+                                              : this
+                                                  .movieEntity
+                                                  .movieDescription
+                                                  .length,
+                                        ),
                                     style: TextStyle(
                                       color: Colors.white,
                                     )))
