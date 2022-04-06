@@ -30,14 +30,13 @@ class _AuthButtonState extends State<AuthButton> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               splashFactory: InkSplash.splashFactory,
-              shadowColor: Colors.white,
             ),
             onPressed: widget.onTap,
             child: Text(
               widget.text,
               style: const TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold),
             )));
   }
@@ -72,7 +71,6 @@ class _SocialButtonState extends State<SocialButton> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             splashFactory: InkSplash.splashFactory,
-            shadowColor: Colors.grey,
           ),
           onPressed: widget.onTap,
           child: Row(
@@ -90,7 +88,7 @@ class _SocialButtonState extends State<SocialButton> {
                 widget.text,
                 style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.black54,
+                  color: Colors.white54,
                 ),
               ),
             ],
@@ -102,8 +100,9 @@ class _SocialButtonState extends State<SocialButton> {
 class IconButtonWidget extends StatefulWidget {
   final String text;
   final IconData icon;
-  final  ontap;
-  const IconButtonWidget({Key? key,required this.ontap,required this.text, required this.icon})
+  final ontap;
+  const IconButtonWidget(
+      {Key? key, required this.ontap, required this.text, required this.icon})
       : super(key: key);
 
   @override
@@ -124,17 +123,17 @@ class _IconButtonWidgetState extends State<IconButtonWidget> {
           splashFactory: InkSplash.splashFactory,
           shadowColor: Colors.white,
         ),
-        onPressed:widget.ontap ,
+        onPressed: widget.ontap,
         icon: Icon(
           widget.icon,
           size: 30,
-          color: Colors.black,
+          color: Colors.white,
         ),
         label: Text(
           widget.text,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ));
