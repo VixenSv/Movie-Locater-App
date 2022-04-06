@@ -79,17 +79,17 @@ class _SingleMoviePageState extends State<SingleMoviePage> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      this.movieEntity.theaterList.length > 0
+                      this.movieEntity.theaterList!.length > 0
                           ? Column(
                               children: this
                                   .movieEntity
-                                  .theaterList
+                                  .theaterList!
                                   .map((e) => TheaterDetailCardWidget(
                                         index: this
                                             .movieEntity
-                                            .theaterList
+                                            .theaterList!
                                             .indexOf(e),
-                                        showTimeList: e.showEntityList,
+                                        showTimeList: e.showEntityList!,
                                         movieEntity: this.movieEntity,
                                         theaterName: e.theaterName,
                                       ))

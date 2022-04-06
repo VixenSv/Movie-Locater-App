@@ -9,21 +9,18 @@ class MovieEntity extends Equatable {
   final String movieName;
   final String movieImage;
   final String movieDescription;
-  final int movieID;
-  final List<TheaterModel> theaterList;
+  final List<TheaterModel>? theaterList;
 
   MovieEntity(
-      {required this.movieImage,
-      required this.movieID,
+      { required this.movieImage,
       required this.movieName,
       required this.movieDescription,
-      required this.theaterList})
+       this.theaterList})
       : super();
 
   static Future<MovieEntity> toMovieEntity(MovieModel movieModel) async {
     return await MovieEntity(
         movieDescription: movieModel.movieDescription,
-        movieID: movieModel.movieID,
         movieName: movieModel.movieName,
         theaterList: movieModel.theaterList,
         movieImage: movieModel.movieImage);
@@ -31,17 +28,15 @@ class MovieEntity extends Equatable {
 
   static Future<MovieModel> fromMovieEntity(MovieEntity movieEntity) async {
     return await MovieModel(
-        movieId: movieEntity.movieID,
         movieName: movieEntity.movieName,
         movieDescription: movieEntity.movieDescription,
         movieImage: movieEntity.movieImage,
-        theaterList: movieEntity.theaterList);
+        theaterList: movieEntity.theaterList!);
   }
 
   @override
   // TODO: implement props
   List<Object?> get props => [
-        this.movieID,
         this.movieName,
         this.movieImage,
         this.movieDescription,

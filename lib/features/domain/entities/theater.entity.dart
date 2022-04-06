@@ -6,25 +6,22 @@ import '../../data/models/movie.model.dart';
 
 class TheaterEntity extends Equatable {
   final String theaterName;
-  final int theaterId;
-  final String theaterImage;
-  final List<dynamic> availbleClasses;
+  final String? theaterImage;
+  final List<dynamic>? availbleClasses;
   final String theaterLocationLink;
-  final List<dynamic> showEntityList;
+  final List<dynamic>? showEntityList;
 
   TheaterEntity(
       {required this.theaterName,
-      required this.theaterId,
-      required this.theaterImage,
-      required this.availbleClasses,
+       this.theaterImage,
+       this.availbleClasses,
       required this.theaterLocationLink,
-      required this.showEntityList})
+       this.showEntityList})
       : super();
 
   static Future<TheaterEntity> toImageEntity(TheaterModel theaterModel) async {
     return await TheaterEntity(
         theaterName: theaterModel.theaterName,
-        theaterId: theaterModel.theaterId,
         availbleClasses: theaterModel.availbleClasses,
         theaterLocationLink: theaterModel.theaterLocationLink,
         showEntityList: theaterModel.showEntityList,
@@ -35,17 +32,15 @@ class TheaterEntity extends Equatable {
       TheaterEntity theaterEntity) async {
     return await TheaterModel(
         theaterName: theaterEntity.theaterName,
-        theaterId: theaterEntity.theaterId,
-        availbleClasses: theaterEntity.availbleClasses,
+        availbleClasses: theaterEntity.availbleClasses!,
         theaterLocationLink: theaterEntity.theaterLocationLink,
-        showEntityList: theaterEntity.showEntityList,
-        theaterImage: theaterEntity.theaterImage);
+        showEntityList: theaterEntity.showEntityList!,
+        theaterImage: theaterEntity.theaterImage!);
   }
 
   @override
   // TODO: implement props
   List<Object?> get props => [
-        this.theaterId,
         this.theaterName,
         this.theaterImage,
         this.theaterLocationLink,

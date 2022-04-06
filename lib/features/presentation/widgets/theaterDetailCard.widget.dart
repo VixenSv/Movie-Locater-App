@@ -78,12 +78,11 @@ class TheaterDetailCardWidget extends StatelessWidget {
                   ],
                 )),
                 RedButtonWidget(
-                  movieEntity: movieEntity,
                   onPressed: () => context.read<MovielocatorblocBloc>().add(
                       BookingEvent(
                           context: context,
                           movieEntity: this.movieEntity,
-                          theaterEntity: this.movieEntity.theaterList[index])),
+                          theaterEntity: this.movieEntity.theaterList![index])),
                   // onPressed: () => Navigator.pushReplacement(
                   //   context,
                   //   MaterialPageRoute(

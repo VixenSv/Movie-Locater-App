@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
-import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
-import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
-import 'package:movie_locator_app/features/presentation/widgets/theaterDetailCard.widget.dart';
 
 class BookingPage extends StatefulWidget {
   final String dropdownValue;
@@ -245,7 +242,6 @@ class _BookingPageState extends State<BookingPage> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               RedButtonWidget(
-                                  movieEntity: state.movieEntity,
                                   onPressed: () => {
                                         context
                                             .read<MovielocatorblocBloc>()
@@ -253,7 +249,7 @@ class _BookingPageState extends State<BookingPage> {
                                                 context: context,
                                                 bookingEntity:
                                                     new BookingEntity(
-                                                        bookingId: 0,
+                                                        bookingId: '',
                                                         movieEntity:
                                                             state.movieEntity,
                                                         selectedShowTime:

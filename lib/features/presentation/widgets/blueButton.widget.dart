@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
-import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
-import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
 
-class RedButtonWidget extends StatelessWidget {
-  const RedButtonWidget(
-      {Key? key,
-      required this.onPressed,
-      required this.label})
+class BlueButtonWidget extends StatelessWidget {
+  const BlueButtonWidget(
+      {Key? key, required this.onPressed, required this.label})
       : super(key: key);
-
 
   final onPressed;
   final String label;
@@ -19,7 +13,7 @@ class RedButtonWidget extends StatelessWidget {
     return Container(
       child: MaterialButton(
         onPressed: this.onPressed,
-        color: Color(0xffB92121),
+        color: Colors.lightBlue,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Text(

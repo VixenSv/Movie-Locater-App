@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 class TheaterModel extends TheaterEntity {
   TheaterModel({
     required String theaterName,
-    required int theaterId,
     required String theaterImage,
     required List<dynamic> availbleClasses,
     required String theaterLocationLink,
@@ -15,7 +14,6 @@ class TheaterModel extends TheaterEntity {
   }) : super(
             availbleClasses: availbleClasses,
             showEntityList: showEntityList,
-            theaterId: theaterId,
             theaterImage: theaterImage,
             theaterLocationLink: theaterLocationLink,
             theaterName: theaterName);
@@ -32,7 +30,6 @@ class TheaterModel extends TheaterEntity {
     return await TheaterModel(
         availbleClasses: availbleClasses,
         showEntityList: showEntityList,
-        theaterId: theaterId,
         theaterImage: theaterImage,
         theaterLocationLink: theaterLocationLink,
         theaterName: theaterName);

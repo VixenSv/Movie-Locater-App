@@ -7,13 +7,13 @@ import 'package:image_picker/image_picker.dart';
 
 class MovieModel extends MovieEntity {
   MovieModel({
-    required int movieId,
+
     required String movieName,
     required String movieDescription,
     required List<TheaterModel> theaterList,
     required String movieImage,
   }) : super(
-            movieID: movieId,
+
             movieName: movieName,
             movieDescription: movieDescription,
             theaterList: theaterList,
@@ -30,7 +30,6 @@ class MovieModel extends MovieEntity {
         movieName: movieName,
         movieDescription: movieDescription,
         movieImage: pickedFile.path,
-        theaterList: theaterList,
-        movieId: 0);
+        theaterList: theaterList,);
   }
 }

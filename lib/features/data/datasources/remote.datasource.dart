@@ -7,6 +7,8 @@ import 'package:mailer/smtp_server.dart';
 import 'package:movie_locator_app/features/data/models/booking.model.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
@@ -17,6 +19,9 @@ abstract class RemoteDataSource {
   Future<BookingModel> addBooking(BookingEntity entity);
   Future<MovieModel> saveUrl(MovieModel movieModel);
   Future<MovieModel> uploadMovie(MovieModel movieModel);
+  Future<BookingModel> getBookingFromRef(String ref);
+  Future<BookingModel> updateBooking(BookingEntity entity);
+  Future<BookingModel> deleteBooking(BookingEntity entity);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -55,7 +60,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       return MovieModel(
         movieImage: downloadUrl,
         movieDescription: '',
-        movieId: 0,
         movieName: '',
         theaterList: [],
       );
@@ -101,20 +105,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
             'theaterLocationLink': entity.theaterEntity.theaterLocationLink,
           }
         })
-        .then((value) async => {
-              // send_email = Email(
-              //   body: 'Booking Reference: '+value.id,
-              //   subject: 'subject of email',
-              //   recipients: ['vchamindu@gmail.com'],
-              //   cc: [],
-              //   bcc: [],
-              //   attachmentPaths: [],
-              //   isHTML: false,
-              // ),
-              // await FlutterEmailSender.send(send_email)
-
-              await sendMail(value)
-            })
+        .then((value) async => {await sendMail(value)})
         .catchError((error) => print("Failed to add booking: $error"));
 
     return BookingEntity.fromBookingEntity(entity);
@@ -143,5 +134,60 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         print('Problem: ${p.code}: ${p.msg}');
       }
     }
+  }
+
+  @override
+  Future<BookingModel> getBookingFromRef(String ref) async {
+    final DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('bookings').doc(ref).get();
+
+    final MovieEntity movieEntity = new MovieEntity(
+        movieName: snapshot.get('movieEntity')['movieName'],
+        movieDescription: snapshot.get('movieEntity')['movieDescription'],
+        movieImage: snapshot.get('movieEntity')['movieImage']);
+    final String selectedShowTime = snapshot.get('selectedShowTime');
+    final int numberofTickets = snapshot.get('numberofTickets');
+    final String bookingId = ref;
+    final TheaterEntity theaterEntity = new TheaterEntity(
+      theaterName: snapshot.get('theaterEntity')['theaterName'],
+      theaterLocationLink: snapshot.get('theaterEntity')['theaterLocationLink'],
+    );
+    final String selectedClass = snapshot.get('selectedClass');
+
+    BookingModel model = new BookingModel(
+        movieEntity: movieEntity,
+        selectedShowTime: selectedShowTime,
+        numberofTickets: numberofTickets,
+        theaterEntity: theaterEntity,
+        selectedClass: selectedClass,
+        bookingId: bookingId);
+
+    return model;
+  }
+
+  @override
+  Future<BookingModel> updateBooking(BookingEntity entity) async {
+    CollectionReference bookings =
+        FirebaseFirestore.instance.collection('bookings');
+
+    await bookings.doc(entity.bookingId).update({
+      'numberofTickets': entity.numberofTickets,
+    }).catchError((error) => print(error));
+
+    return BookingEntity.fromBookingEntity(entity);
+  }
+
+  @override
+  Future<BookingModel> deleteBooking(BookingEntity entity) async {
+    CollectionReference bookings =
+        FirebaseFirestore.instance.collection('bookings');
+
+    await bookings
+        .doc(entity.bookingId)
+        .delete()
+        .catchError((error) => print(error));
+    ;
+
+    return BookingEntity.fromBookingEntity(entity);
   }
 }

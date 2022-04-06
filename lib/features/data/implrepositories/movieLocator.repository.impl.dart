@@ -25,10 +25,43 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
   }
 
   @override
-  Future<Either<Failure, BookingEntity>> addBooking(BookingEntity entity) async {
+  Future<Either<Failure, BookingEntity>> addBooking(
+      BookingEntity entity) async {
     try {
       return Right(await BookingEntity.toBookingEntity(
           await remoteDataSource.addBooking(entity)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> getBookingFromRef(String ref) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.getBookingFromRef(ref)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> updateBookingData(
+      BookingEntity entity) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.updateBooking(entity)));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingEntity>> deleteBookingData(
+      BookingEntity entity) async {
+    try {
+      return Right(await BookingEntity.toBookingEntity(
+          await remoteDataSource.deleteBooking(entity)));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -7,4 +7,7 @@ import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dar
 abstract class MovieLocatorRepository {
   Future<Either<Failure, MovieListEntity>> getMovieList();
   Future<Either<Failure, BookingEntity>> addBooking(BookingEntity entity);
+  Future<Either<Failure, BookingEntity>> getBookingFromRef(String ref);
+  Future<Either<Failure, BookingEntity>> updateBookingData(BookingEntity entity);
+  Future<Either<Failure, BookingEntity>> deleteBookingData(BookingEntity entity);
 }

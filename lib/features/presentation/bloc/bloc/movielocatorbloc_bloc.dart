@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
@@ -30,7 +28,6 @@ class MovielocatorblocBloc
     on<BookingEvent>(_onBookingEvent);
     on<GoHomeEvent>(_onGoHomeEvent);
     on<ConfirmBookingEvent>(_onConfirmBookingEvent);
-    //add your methods here
   }
 
   get movieEntity => null;
@@ -77,8 +74,8 @@ class MovielocatorblocBloc
 
   Future<void> _onBookingEvent(
       BookingEvent event, Emitter<MovielocatorblocState> emit) async {
-    List<String> list = event.theaterEntity.showEntityList.cast();
-    List<String> clist = event.theaterEntity.availbleClasses.cast();
+    List<String> list = event.theaterEntity.showEntityList!.cast();
+    List<String> clist = event.theaterEntity.availbleClasses!.cast();
     Navigator.pushReplacement(
       event.context,
       MaterialPageRoute(

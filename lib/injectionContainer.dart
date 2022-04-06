@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:movie_locator_app/features/data/datasources/remote.datasource.dart';
 import 'package:movie_locator_app/features/domain/irepositories/movieLocator.repository.dart';
+import 'package:movie_locator_app/features/domain/usecases/GetBookingDataFromRef.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getMovieList.usecase.dart';
 // import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 
@@ -14,6 +16,8 @@ Future<void>? init() {
 
   //usecase
   sl.registerLazySingleton(() => GetMovieList(sl()));
+  sl.registerLazySingleton(() => GetBookingDataFromRef(sl()));
+  sl.registerLazySingleton(() => ConfirmBooking(sl()));
 
   //repository
   sl.registerLazySingleton<MovieLocatorRepository>(

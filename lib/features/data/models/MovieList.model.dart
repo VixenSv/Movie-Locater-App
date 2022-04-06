@@ -22,7 +22,6 @@ class MovieListModel extends Equatable {
     List<TheaterModel> theaterList2 = [];
 
     MovieModel mm = new MovieModel(
-        movieId: movieID,
         movieName: movieName,
         movieDescription: movieDescription,
         theaterList: theaterList2,
@@ -57,7 +56,6 @@ class MovieListModel extends Equatable {
       movieID = i.get('movieId');
       theaterList2 = await getTheaterModel(i);
       mm = new MovieModel(
-          movieId: movieID,
           movieName: movieName,
           movieDescription: movieDescription,
           theaterList: theaterList2,
@@ -78,7 +76,6 @@ class MovieListModel extends Equatable {
 
     TheaterModel tm = new TheaterModel(
         theaterName: theaterName,
-        theaterId: theaterId,
         theaterImage: theaterImage,
         availbleClasses: availbleClasses,
         theaterLocationLink: theaterLocationLink,
@@ -95,7 +92,6 @@ class MovieListModel extends Equatable {
             showEntityList = value.get('showTimeList'),
             tm = new TheaterModel(
                 theaterName: theaterName,
-                theaterId: theaterId,
                 theaterImage: theaterImage,
                 availbleClasses: availbleClasses,
                 theaterLocationLink: theaterLocationLink,

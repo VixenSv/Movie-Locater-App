@@ -66,16 +66,14 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int movieID = _movieList.movieList[_index].movieID;
     String movieImage = _movieList.movieList[_index].movieImage;
     String movieName = _movieList.movieList[_index].movieName;
     String movieDescription = _movieList.movieList[_index].movieDescription;
-    List<TheaterModel> theatherList = _movieList.movieList[_index].theaterList;
+    List<TheaterModel> theatherList = _movieList.movieList[_index].theaterList!;
     return Expanded(
         child: MovieCardWidget(
       movieEntity: new MovieEntity(
           movieImage: movieImage,
-          movieID: movieID,
           movieName: movieName,
           movieDescription: movieDescription,
           theaterList: theatherList),

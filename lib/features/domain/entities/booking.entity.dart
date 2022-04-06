@@ -7,7 +7,7 @@ class BookingEntity extends Equatable {
   final MovieEntity movieEntity;
   final String selectedShowTime;
   final int numberofTickets;
-  final int bookingId;
+  final String bookingId;
   final TheaterEntity theaterEntity;
   final String selectedClass;
 

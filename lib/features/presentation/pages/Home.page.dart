@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_event.dart';
+import 'package:movie_locator_app/features/presentation/pages/viewBookings.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/bottomNavigationBar.widget.dart';
 
 import '../widgets/bnbItem.widget.dart';
@@ -41,8 +42,8 @@ class _HomePageState extends State<HomePage> {
           icon: Icons.airplane_ticket,
           label: 'Bookings',
           onPressed: () => setState(() {
-                this.appBarTitle = 'Bookings';
-                // this.bodyContent = BookingsPage();
+                this.appBarTitle = 'View Bookings';
+                this.bodyContent = ViewBookingPage();
               })),
       BNBItemWidget(
           event: new GoHomeEvent(),
