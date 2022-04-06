@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
@@ -12,7 +13,7 @@ import '../models/movie.model.dart';
 abstract class RemoteDataSource {
   Future<MovieListModel> getImageList();
   Future<MovieModel> saveUrl(MovieModel movieModel);
-  Future<MovieModel> uploadMovie(MovieModel movieModel);
+  Future<MovieModel> addMovie(MovieEntity movieEntity);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -84,5 +85,25 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     movieList = await snapshot.docs;
     movieListModel = await movieListModel.toMovieModel(movieList!);
     return movieListModel;
+  }
+
+  @override
+  Future<MovieModel> addMovie(MovieEntity movieEntity) async {
+    CollectionReference movies =
+        FirebaseFirestore.instance.collection('movies');
+
+    await movies
+        .add({
+          'movieDescription': movieEntity.movieDescription,
+          'movieId': movieEntity.movieID,
+          'movieImage': movieEntity.movieImage,
+          'movieName': movieEntity.movieName,
+          'theaterList': [],
+        })
+        .then((value) => print(value))
+        .catchError(
+          (error) => print("fail to add movie $error"),
+        );
+    return MovieEntity.fromMovieEntity(movieEntity);
   }
 }

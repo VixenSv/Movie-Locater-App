@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_locator_app/features/presentation/pages/MovieDetails.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/bottomNavigationBar.widget.dart';
 
 import '../widgets/bnbItem.widget.dart';
@@ -27,10 +28,11 @@ class _HomePageState extends State<HomePage> {
     var BNBItemList = [
       BNBItemWidget(
           icon: Icons.list,
-          label: 'Movie List',
+          label: 'Add Movie',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Movie List';
-                this.bodyContent = MovieListPage();
+                this.bodyContent = MovieDetailsPage();
+
               })),
       BNBItemWidget(
           icon: Icons.airplane_ticket,

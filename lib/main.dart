@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_locator_app/features/data/datasources/remote.datasource.dart';
 import 'package:movie_locator_app/features/data/implrepositories/movieLocator.repository.impl.dart';
 import 'package:movie_locator_app/features/domain/irepositories/movieLocator.repository.dart';
+import 'package:movie_locator_app/features/domain/usecases/addMovie.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getMovieList.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
+import 'package:movie_locator_app/features/presentation/pages/MovieDetails.page.dart';
 
 import 'features/presentation/bloc/bloc/movielocatorbloc_bloc.dart';
 import 'features/presentation/pages/Home.page.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => MovielocatorblocBloc(
                   getMovieList: GetMovieList(MovieLocatorRepositoryImpl(
+                      remoteDataSource: RemoteDataSourceImpl())),
+                      addMovie: AddMovie(MovieLocatorRepositoryImpl(
                       remoteDataSource: RemoteDataSourceImpl())))
                 ..add(GetMovieListEvent()))
         ],
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
             title: 'Movie Locator',
             initialRoute: '/home',
             routes: {
-              '/home': (context) => HomePage(MovieListPage(), 'Movie List')
+              '/home': (context) => HomePage(MovieDetailsPage(), 'Movie List')
             }));
   }
 }

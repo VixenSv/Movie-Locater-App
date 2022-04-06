@@ -6,5 +6,5 @@ import 'package:movie_locator_app/features/domain/usecases/addMovie.usecase.dart
 
 abstract class MovieLocatorRepository {
   Future<Either<Failure, MovieListEntity>> getMovieList();
-  Future<Either<Failure, MovieListEntity>> addMovie(MovieEntity movie);
+  Future<Either<Failure, MovieEntity>> addMovie(MovieEntity movie);
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 
 abstract class MovielocatorblocEvent extends Equatable {
@@ -13,12 +14,11 @@ class GetMovieListEvent extends MovielocatorblocEvent {
 }
 
 class AddMovieEvent extends MovielocatorblocEvent {
-  
-  MovieEntity movieEntity;
+  final MovieEntity movieEntity;
+  final BuildContext context;
 
-  AddMovieEvent({required this.movieEntity});
+  AddMovieEvent({required this.movieEntity, required this.context});
 
   @override
   List<Object> get props => [movieEntity];
-
 }
