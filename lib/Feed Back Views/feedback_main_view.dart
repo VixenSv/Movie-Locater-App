@@ -32,6 +32,7 @@ class _FeedBackMainState extends State<FeedBackMain> {
         var heightsize = MediaQuery.of(context).size.height;
         var widthsize = MediaQuery.of(context).size.width;
         return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 70, 70, 70),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           contentPadding: EdgeInsets.all(10),
@@ -63,6 +64,7 @@ class _FeedBackMainState extends State<FeedBackMain> {
               ),
               Container(
                   // height: heightsize*0.05,
+
                   width: widthsize,
                   child: Text(
                     "Thank You For Sharing your Thoughts.\n We appreciate your Feedback",
@@ -224,7 +226,7 @@ class _FeedBackMainState extends State<FeedBackMain> {
               AuthButton(
                 buttoncolor:
                     description_valid == "null" && slected_feedback != ""
-                        ? Color.fromARGB(255, 187, 32, 29)
+                        ? Color(0xFFBB201D)
                         : Color.fromARGB(255, 187, 32, 29).withOpacity(0.6),
                 onTap: description_valid == "null" && slected_feedback != ""
                     ? () async {
@@ -246,7 +248,7 @@ class _FeedBackMainState extends State<FeedBackMain> {
               ),
               //Recent Feedback Button
               AuthButton(
-                buttoncolor: Colors.blueAccent.withOpacity(0.4),
+                buttoncolor: Colors.blueAccent,
                 onTap: () {
                   Get.to(() => RecentsView());
                 },

@@ -24,6 +24,7 @@ class _RecentsViewState extends State<RecentsView> {
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
+            backgroundColor: Color.fromARGB(255, 70, 70, 70),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             contentPadding: EdgeInsets.all(10),
@@ -42,6 +43,7 @@ class _RecentsViewState extends State<RecentsView> {
                 Container(
                   height: 80,
                   child: TextFormField(
+                    style: TextStyle(color: Colors.white),
                     textInputAction: TextInputAction.done,
                     controller: descrip,
                     focusNode: des_focous,
@@ -50,17 +52,17 @@ class _RecentsViewState extends State<RecentsView> {
                       labelStyle: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color: Colors.white),
                       labelText: 'Description',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0),
                         borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
+                            const BorderSide(color: Colors.white, width: 1.0),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0),
                         borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
+                            const BorderSide(color: Colors.white, width: 1.0),
                       ),
                       contentPadding: EdgeInsets.all(15),
                       hintText: 'Write Your Feedback',
@@ -96,12 +98,12 @@ class _RecentsViewState extends State<RecentsView> {
                         width: 80,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Color(0XFFC8E5F5)),
+                            color: Colors.blueAccent),
                         child: const Center(
                           child: Text(
                             "Save",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -118,12 +120,12 @@ class _RecentsViewState extends State<RecentsView> {
                         width: 80,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Color(0XFFC8E5F5)),
+                            color: Color(0xFFBB201D)),
                         child: const Center(
                           child: Text(
                             "Cancel",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -266,8 +268,8 @@ class _RecentsViewState extends State<RecentsView> {
                                           child: const Icon(
                                             Icons.delete,
                                             size: 30,
-                                            color: Color.fromARGB(
-                                                255, 187, 32, 29),
+                                            color:
+                                                Color.fromRGBO(187, 32, 29, 1),
                                           ))
                                     ],
                                   ),

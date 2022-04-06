@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../utils/colors.dart';
 
 class AuthButton extends StatefulWidget {
   final String text;
@@ -118,7 +117,6 @@ class _IconButtonWidgetState extends State<IconButtonWidget> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           elevation: 8,
-          primary: AppColors.yellowColorDark,
           minimumSize: const Size.fromHeight(60),
           splashFactory: InkSplash.splashFactory,
           shadowColor: Colors.white,
