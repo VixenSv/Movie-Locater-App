@@ -12,7 +12,6 @@ import 'package:movie_locator_app/features/data/models/booking.model.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
-
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
 import '../models/movie.model.dart';
@@ -23,6 +22,7 @@ abstract class RemoteDataSource {
   Future<BookingModel> addBooking(BookingEntity entity);
   Future<MovieModel> saveUrl(MovieModel movieModel);
   Future<MovieModel> addMovie(MovieEntity movieEntity);
+  Future<MovieModel> updateMovie(MovieEntity movieEntity);
   Future<MovieModel> uploadMovie(MovieModel movieModel);
   Future<TheaterModel> addTheater(TheaterEntity entity);
   Future<BookingModel> getBookingFromRef(String ref);
@@ -32,6 +32,7 @@ abstract class RemoteDataSource {
   Future<TheaterListModel> getTheaterList();
   Future<TheaterModel> updateTheater(TheaterEntity entity);
   Future<bool> deleteTheater(String ref);
+  Future<bool> deleteMovie(String ref);
   Future<MovieListModel> getAdminMovieList();
 }
 
@@ -203,30 +204,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .delete()
         .catchError((error) => print(error));
 
-
     return BookingEntity.fromBookingEntity(entity);
   }
 
   @override
-  Future<TheaterModel> addTheater(TheaterEntity entity) async{
-
+  Future<TheaterModel> addTheater(TheaterEntity entity) async {
     CollectionReference theaters =
         FirebaseFirestore.instance.collection('theaters');
 
     await theaters
         .add({
-          'availableClasses':
-            entity.availbleClasses
-          ,
-          'showTimeList':
-            entity.showEntityList
-          ,
+          'availableClasses': entity.availbleClasses,
+          'showTimeList': entity.showEntityList,
           'theaterImage': entity.theaterImage,
           'theaterLocationLink': entity.theaterLocationLink,
           'theaterName': entity.theaterName,
         })
-        .then((value) async => {
-            })
+        .then((value) async => {})
         .catchError((error) => print("Failed to add booking: $error"));
 
     return TheaterEntity.fromTheaterEntity(entity);
@@ -234,12 +228,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<String> addTheaterImage(XFile xfile) async {
-
     final storageRef = FirebaseStorage.instance.ref();
 
     String fileName = xfile.name;
     // final mountainsRef = storageRef.child("mountains.jpg");
-
 
     final imagesRef = storageRef.child("theaterImages/$fileName");
 
@@ -250,17 +242,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       final task = await imagesRef.putFile(file);
       url = await imagesRef.getDownloadURL();
-    } catch (e){
-
-    }
+    } catch (e) {}
 
     return url;
-
   }
 
   @override
   Future<TheaterListModel> getTheaterList() async {
-
     TheaterListModel theaterListModel = TheaterListModel();
 
     final QuerySnapshot snapshot =
@@ -273,12 +261,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<TheaterModel> updateTheater(TheaterEntity entity) async {
     CollectionReference bookings =
-    FirebaseFirestore.instance.collection('theaters');
+        FirebaseFirestore.instance.collection('theaters');
 
     await bookings.doc(entity.theaterId).update({
       'theaterImage': entity.theaterImage,
-      'theaterLocationLink':entity.theaterLocationLink,
-      'theaterName':entity.theaterName
+      'theaterLocationLink': entity.theaterLocationLink,
+      'theaterName': entity.theaterName
     }).catchError((error) => print(error));
 
     return TheaterEntity.fromTheaterEntity(entity);
@@ -287,15 +275,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<bool> deleteTheater(String ref) async {
     CollectionReference bookings =
-    FirebaseFirestore.instance.collection('theaters');
+        FirebaseFirestore.instance.collection('theaters');
 
-    await bookings
-        .doc(ref)
-        .delete()
-        .catchError((error) => print(error));
+    await bookings.doc(ref).delete().catchError((error) => print(error));
 
     return true;
-
   }
 
   @override
@@ -308,7 +292,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           'movieDescription': movieEntity.movieDescription,
           'movieImage': movieEntity.movieImage,
           'movieName': movieEntity.movieName,
-          'theaterList': movieEntity.theaterList!.map((e) => e.theaterName).toList(),
+          'theaterList':
+              movieEntity.theaterList!.map((e) => e.theaterName).toList(),
         })
         .then((value) => print(value))
         .catchError(
@@ -319,7 +304,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<MovieListModel> getAdminMovieList() async {
-
     MovieListModel movieListModel = MovieListModel();
 
     final QuerySnapshot snapshot =
@@ -327,5 +311,29 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     movieList = snapshot.docs;
     movieListModel = await movieListModel.toMovieModel(movieList!);
     return movieListModel;
+  }
+
+  @override
+  Future<MovieModel> updateMovie(MovieEntity movieEntity) async {
+    CollectionReference movies =
+        FirebaseFirestore.instance.collection('admins-movies');
+
+    await movies.doc(movieEntity.movieId).update({
+      'movieImage': movieEntity.movieImage,
+      'movieName': movieEntity.movieName,
+      'movieDescription': movieEntity.movieDescription
+    }).catchError((error) => print(error));
+
+    return MovieEntity.fromMovieEntity(movieEntity);
+  }
+
+  @override
+  Future<bool> deleteMovie(String ref) async {
+    CollectionReference movies =
+        FirebaseFirestore.instance.collection('admins-movies');
+
+    await movies.doc(ref).delete().catchError((error) => print(error));
+
+    return true;
   }
 }

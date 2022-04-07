@@ -40,6 +40,15 @@ class UpdateMovieEvent extends MovielocatorblocEvent {
   List<Object> get props => [movieEntity];
 }
 
+class DeleteMovieEvent extends MovielocatorblocEvent {
+  final String ref;
+
+  DeleteMovieEvent({required this.ref});
+
+  @override
+  List<Object> get props => [this.ref];
+}
+
 class GoHomeEvent extends MovielocatorblocEvent {
   @override
   List<Object?> get props => [];
@@ -52,7 +61,7 @@ class ConfirmBookingEvent extends MovielocatorblocEvent {
   ConfirmBookingEvent({required this.bookingEntity, required this.context});
 
   @override
-  List<Object?> get props => [this.bookingEntity,this.context];
+  List<Object?> get props => [this.bookingEntity, this.context];
 }
 
 class BookingEvent extends MovielocatorblocEvent {
