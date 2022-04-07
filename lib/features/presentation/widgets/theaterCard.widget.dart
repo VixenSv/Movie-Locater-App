@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/singleMovie.page.dart';
 
-class MovieCardWidget extends StatelessWidget {
-  final onPressed;
-  MovieEntity movieEntity;
+import '../pages/SingleTheater.page.dart';
 
-  MovieCardWidget({Key? key, this.onPressed, required this.movieEntity})
+class TheaterCardWidget extends StatelessWidget {
+  final onPressed;
+  TheaterEntity theaterEntity;
+
+  TheaterCardWidget({Key? key, this.onPressed, required this.theaterEntity})
       : super(key: key);
 
   @override
@@ -17,7 +20,7 @@ class MovieCardWidget extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => HomePage(
-                SingleMoviePage(movieEntity: this.movieEntity), 'Movie')),
+                SingleTheaterPage(theaterEntity: this.theaterEntity), 'Movie')),
       ),
       child: Padding(
         padding: EdgeInsets.only(bottom: 10),
@@ -41,7 +44,7 @@ class MovieCardWidget extends StatelessWidget {
                             topLeft: Radius.circular(20),
                             bottomLeft: Radius.circular(20),
                           )),
-                      child: Image.network(this.movieEntity.movieImage),
+                      child: Image.network(this.theaterEntity.theaterImage!),
                     ),
                   ),
                 ),
@@ -59,7 +62,7 @@ class MovieCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
@@ -69,7 +72,7 @@ class MovieCardWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Expanded(
-                                  child: Text(this.movieEntity.movieName,
+                                  child: Text(this.theaterEntity.theaterName,
                                       style: TextStyle(
                                           color: Color(0xffB92121),
                                           fontSize: 20,
@@ -80,28 +83,6 @@ class MovieCardWidget extends StatelessWidget {
                             SizedBox(
                               height: 10.0,
                             ),
-                            Expanded(
-                                child: Text(
-                                    this.movieEntity.movieDescription.substring(
-                                          0,
-                                          this
-                                                      .movieEntity
-                                                      .movieDescription
-                                                      .length >
-                                                  100
-                                              ? this
-                                                          .movieEntity
-                                                          .movieDescription
-                                                          .length ~/
-                                                      3
-                                              : this
-                                                  .movieEntity
-                                                  .movieDescription
-                                                  .length,
-                                        ),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    )))
                           ],
                         ),
                       ),

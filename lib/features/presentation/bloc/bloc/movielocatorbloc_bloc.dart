@@ -1,10 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_locator_app/features/domain/usecases/addMovie.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
+import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/MovieList.page.dart';
 import '../../../../core/error/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../domain/entities/movie.entity.dart';
@@ -21,24 +26,85 @@ const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 class MovielocatorblocBloc
     extends Bloc<MovielocatorblocEvent, MovielocatorblocState> {
   GetMovieList getMovieList;
+  ConfirmBooking confirmBooking;
   AddMovie addMovie;
 
+  MovielocatorblocBloc(
+      {required this.getMovieList, required this.confirmBooking})
+      : super(MovieListLoading()) {
   MovielocatorblocBloc({required this.getMovieList, required this.addMovie})
       : super(AddingMovie()) {
     on<GetMovieListEvent>(_onGetMovieList);
-    on<AddMovieEvent>(_onAddMovieEvent);
+    on<BookingEvent>(_onBookingEvent);
+    on<GoHomeEvent>(_onGoHomeEvent);
+    on<ConfirmBookingEvent>(_onConfirmBookingEvent);
   }
 
-  Future<void> _onGetMovieList(
-      GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
+  get movieEntity => null;
+
+  Future<void> _onGoHomeEvent(
+      GoHomeEvent event, Emitter<MovielocatorblocState> emit) async {
     final failureOrImageEntity = await getMovieList(NoParams());
-    failureOrImageEntity.map((r) => print(r.movieList[0].movieName));
     failureOrImageEntity.fold(
       (failure) => Error(
         message: _mapFailureToMessage(failure),
       ),
       (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
     );
+
+
+  }
+
+  Future<void> _onConfirmBookingEvent(
+      ConfirmBookingEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await confirmBooking(event.bookingEntity);
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoading()),
+    );
+
+    Navigator.pushReplacement(
+      event.context,
+      MaterialPageRoute(
+          builder: (context) => HomePage(MovieListPage(), 'Movie List')),
+    );
+    on<AddMovieEvent>(_onAddMovieEvent);
+  }
+
+  Future<void> _onGetMovieList(
+      GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await getMovieList(NoParams());
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoaded(listEntity: imageEntity)),
+    );
+    // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
+  }
+
+  Future<void> _onBookingEvent(
+      BookingEvent event, Emitter<MovielocatorblocState> emit) async {
+    List<String> list = event.theaterEntity.showEntityList!.cast();
+    List<String> clist = event.theaterEntity.availbleClasses!.cast();
+    Navigator.pushReplacement(
+      event.context,
+      MaterialPageRoute(
+          builder: (context) => HomePage(
+              BookingPage(
+                dropdownValue: list[0],
+                selectedClass: clist[0],
+              ),
+              'Book Now')),
+    );
+
+    emit(BookingState(
+        movieEntity: event.movieEntity,
+        theaterEntity: event.theaterEntity,
+        showTimeList: list,
+        classList: clist));
     // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
   }
 
@@ -57,7 +123,7 @@ class MovielocatorblocBloc
     //   MaterialPageRoute(
     //       builder: (context) => HomePage(MovieListPage(), 'Movie List')),
     // );
-    
+
   }
 
   @override

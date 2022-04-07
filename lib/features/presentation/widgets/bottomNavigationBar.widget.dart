@@ -37,6 +37,7 @@ List<Widget> buildBNBItems(List dataSet) {
             icon: e.getIcon(),
             label: e.getLabel(),
             onPress: e.getFunction(),
+            event: e.getEvent(),
           ))
       .toList();
 }

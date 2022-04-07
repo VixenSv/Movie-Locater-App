@@ -1,18 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:movie_locator_app/features/data/models/theater.model.dart';
+import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
+
 import '../../domain/entities/movie.entity.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MovieModel extends MovieEntity {
   MovieModel({
-    required int movieId,
+
     required String movieName,
     required String movieDescription,
-    required List<dynamic> theaterIdList,
+    required List<TheaterModel> theaterList,
     required String movieImage,
   }) : super(
-            movieID: movieId,
+
             movieName: movieName,
             movieDescription: movieDescription,
-            theatherIdList: theaterIdList,
+            theaterList: theaterList,
             movieImage: movieImage);
 
   //method to convert picked Image into a image model
@@ -20,13 +24,12 @@ class MovieModel extends MovieEntity {
       PickedFile pickedFile,
       String movieName,
       String movieDescription,
-      List<int> theaterIdList,
+      List<TheaterModel> theaterList,
       String movieImage) async {
     return await MovieModel(
         movieName: movieName,
         movieDescription: movieDescription,
         movieImage: pickedFile.path,
-        theaterIdList: theaterIdList,
-        movieId: 0);
+        theaterList: theaterList,);
   }
 }

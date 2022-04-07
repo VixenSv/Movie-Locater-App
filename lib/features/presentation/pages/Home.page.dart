@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/presentation/pages/MovieDetails.page.dart';
+import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_event.dart';
+import 'package:movie_locator_app/features/presentation/pages/ViewTheaters.page.dart';
+import 'package:movie_locator_app/features/presentation/pages/viewBookings.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/bottomNavigationBar.widget.dart';
 
 import '../widgets/bnbItem.widget.dart';
+import 'AddTheater.page.dart';
 import 'MovieList.page.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +31,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var BNBItemList = [
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.list,
+          label: 'Movie List',
+          onPressed: () => {
+                setState(() {
+                  this.appBarTitle = 'Movie List';
+                  this.bodyContent = MovieListPage();
+                })
+              }),
           label: 'Add Movie',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Movie List';
@@ -35,25 +47,28 @@ class _HomePageState extends State<HomePage> {
 
               })),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.airplane_ticket,
           label: 'Bookings',
           onPressed: () => setState(() {
-                this.appBarTitle = 'Bookings';
-                // this.bodyContent = BookingsPage();
+                this.appBarTitle = 'View Bookings';
+                this.bodyContent = ViewBookingPage();
               })),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.feedback,
           label: 'Feedbacks',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Feedbacks';
-                // this.bodyContent = FeedbacksPage();
+                this.bodyContent = AddTheaterPage();
               })),
       BNBItemWidget(
+          event: new GoHomeEvent(),
           icon: Icons.account_circle,
           label: 'Profile',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Profile';
-                // this.bodyContent = ProfilePage();
+                this.bodyContent = TheaterListPage();
               })),
     ];
     return Scaffold(
@@ -67,8 +82,11 @@ class _HomePageState extends State<HomePage> {
         itemList: BNBItemList,
       ),
       body: SafeArea(
-        child: Expanded(
-          child: this.bodyContent,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Expanded(
+            child: this.bodyContent,
+          ),
         ),
       ),
     );
