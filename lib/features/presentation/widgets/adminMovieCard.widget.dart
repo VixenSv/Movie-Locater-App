@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
+import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/UpdatemovieDetails.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/singleMovie.page.dart';
@@ -76,17 +78,29 @@ class AdminMovieCardWidget extends StatelessWidget {
                         ),
                         Expanded(
                             child: Row(
-                              children: [
-                                RedButtonWidget(onPressed: (){  Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage(
-                                          AdminUpdateMoviePage(movieEntity: this.movieEntity), 'Update Movie')),
-                                );}, label: 'Update'),
-                                SizedBox(width: 10,),
-                                RedButtonWidget(onPressed: (){print('delete');}, label: 'Delete')
-                              ],
-                            ))
+                          children: [
+                            RedButtonWidget(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage(
+                                            AdminUpdateMoviePage(
+                                                movieEntity: this.movieEntity),
+                                            'Update Movie')),
+                                  );
+                                },
+                                label: 'Update'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RedButtonWidget(
+                                onPressed: () {
+                                  context.read<MovielocatorblocBloc>().add(DeleteMovieEvent(ref: this.movieEntity.movieId));
+                                },
+                                label: 'Delete')
+                          ],
+                        ))
                       ],
                     ),
                   ),

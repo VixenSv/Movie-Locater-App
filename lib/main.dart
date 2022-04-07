@@ -6,22 +6,20 @@ import 'package:movie_locator_app/features/data/implrepositories/movieLocator.re
 import 'package:movie_locator_app/features/domain/usecases/addTheater.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/addTheaterImage.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/deleteBooking.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/deleteMovie.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/deleteTheater.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getAdminMovieList.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getBookingDataFromRef.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
-import 'package:movie_locator_app/features/domain/irepositories/movieLocator.repository.dart';
 import 'package:movie_locator_app/features/domain/usecases/addMovie.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getMovieList.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getTheaterList.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/updateBooking.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/updateMovie.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/updateTheater.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/TheaterBloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
-import 'package:movie_locator_app/features/presentation/pages/MovieDetails.page.dart';
-
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bookingBloc/bloc/bloc.dart';
-import 'features/presentation/bloc/bloc/movielocatorbloc_bloc.dart';
 import 'features/presentation/pages/Home.page.dart';
 import 'features/presentation/pages/MovieList.page.dart';
 import 'injectionContainer.dart' as di;
@@ -48,6 +46,10 @@ class MyApp extends StatelessWidget {
                   confirmBooking: ConfirmBooking(MovieLocatorRepositoryImpl(
                       remoteDataSource: RemoteDataSourceImpl())),
               getAdminMovieList: GetAdminMovieList(MovieLocatorRepositoryImpl(
+                  remoteDataSource: RemoteDataSourceImpl())),
+                  deleteMovie: DeleteMovie(MovieLocatorRepositoryImpl(
+                  remoteDataSource: RemoteDataSourceImpl())),
+                  updateMovie: UpdateMovie(MovieLocatorRepositoryImpl(
                   remoteDataSource: RemoteDataSourceImpl())))
                 ..add(GetMovieListEvent(isAdmin: false))),
           BlocProvider(

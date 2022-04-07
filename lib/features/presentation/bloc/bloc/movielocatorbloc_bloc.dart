@@ -2,24 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:movie_locator_app/features/domain/usecases/addMovie.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/deleteMovie.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getAdminMovieList.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/updateMovie.usecase.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/pages/Booking.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/Home.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/MovieList.page.dart';
 import '../../../../core/error/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../domain/entities/movie.entity.dart';
 import '../../../domain/entities/movieList.enitity.dart';
 import '../../../domain/usecases/getMovieList.usecase.dart';
 import '../../pages/Home.page.dart';
 import '../../pages/MovieList.page.dart';
-import 'movielocatorbloc_event.dart';
-import 'movielocatorbloc_state.dart';
 
 const String SELECTION_FAILURE_MESSAGE = 'selection Failure';
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
@@ -30,9 +26,17 @@ class MovielocatorblocBloc
   ConfirmBooking confirmBooking;
   AddMovie addMovie;
   GetAdminMovieList getAdminMovieList;
+  UpdateMovie updateMovie;
+  DeleteMovie deleteMovie;
 
   MovielocatorblocBloc(
-      {required this.getMovieList, required this.confirmBooking, required this.addMovie,required this.getAdminMovieList})
+      {required this.getMovieList,
+      required this.confirmBooking,
+      required this.addMovie,
+      required this.getAdminMovieList,
+      required this.deleteMovie,
+      required this.updateMovie
+      })
       : super(MovieListLoading()) {
     on<GetMovieListEvent>(_onGetMovieList);
     on<BookingEvent>(_onBookingEvent);
@@ -40,6 +44,7 @@ class MovielocatorblocBloc
     on<ConfirmBookingEvent>(_onConfirmBookingEvent);
     on<AddMovieEvent>(_onAddMovieEvent);
     on<UpdateMovieEvent>(_onUpdateMovieEvent);
+    on<DeleteMovieEvent>(_onDeleteMovieEvent);
   }
 
   get movieEntity => null;
@@ -55,7 +60,6 @@ class MovielocatorblocBloc
 
     // );
     emit(MovieListLoading());
-
   }
 
   Future<void> _onConfirmBookingEvent(
@@ -78,24 +82,23 @@ class MovielocatorblocBloc
 
   Future<void> _onGetMovieList(
       GetMovieListEvent event, Emitter<MovielocatorblocState> emit) async {
-    if(event.isAdmin){
-      final failureOrImageEntity =  await getAdminMovieList(NoParams());
+    if (event.isAdmin) {
+      final failureOrImageEntity = await getAdminMovieList(NoParams());
       failureOrImageEntity.fold(
-            (failure) => Error(
+        (failure) => Error(
           message: _mapFailureToMessage(failure),
         ),
-            (movieEntity) => emit(MovieListLoaded(listEntity: movieEntity)),
+        (movieEntity) => emit(MovieListLoaded(listEntity: movieEntity)),
       );
-    }else {
-      final failureOrImageEntity =  await getMovieList(NoParams());
+    } else {
+      final failureOrImageEntity = await getMovieList(NoParams());
       failureOrImageEntity.fold(
-            (failure) => Error(
+        (failure) => Error(
           message: _mapFailureToMessage(failure),
         ),
-            (movieEntity) => emit(MovieListLoaded(listEntity: movieEntity)),
+        (movieEntity) => emit(MovieListLoaded(listEntity: movieEntity)),
       );
     }
-
 
     // _eitherListLodedOrErrorState(failureOrImageEntity, emit);
   }
@@ -133,21 +136,28 @@ class MovielocatorblocBloc
       ),
       (imageEntity) => emit(MovieListLoading()),
     );
-
-
   }
 
   Future<void> _onUpdateMovieEvent(
       UpdateMovieEvent event, Emitter<MovielocatorblocState> emit) async {
-    final failureOrImageEntity = await addMovie(event.movieEntity);
+    final failureOrImageEntity = await updateMovie(event.movieEntity);
     failureOrImageEntity.fold(
-          (failure) => Error(
+      (failure) => Error(
         message: _mapFailureToMessage(failure),
       ),
-          (imageEntity) => emit(MovieListLoading()),
+      (imageEntity) => emit(MovieListLoading()),
     );
+  }
 
-
+  Future<void> _onDeleteMovieEvent(
+      DeleteMovieEvent event, Emitter<MovielocatorblocState> emit) async {
+    final failureOrImageEntity = await deleteMovie(event.ref);
+    failureOrImageEntity.fold(
+      (failure) => Error(
+        message: _mapFailureToMessage(failure),
+      ),
+      (imageEntity) => emit(MovieListLoading()),
+    );
   }
 
   @override
