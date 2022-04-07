@@ -20,7 +20,7 @@ class TheaterCardWidget extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => HomePage(
-                SingleTheaterPage(theaterEntity: this.theaterEntity), 'Movie')),
+                SingleTheaterPage(theaterEntity: this.theaterEntity), 'Theater')),
       ),
       child: Padding(
         padding: EdgeInsets.only(bottom: 10),

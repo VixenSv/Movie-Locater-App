@@ -127,8 +127,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   sendMail(value) async {
-    String username = 'agrapgod@gmail.com';
-    String password = 'vihanga123';
+    String username = 'sample@gmail.com';
+    String password = 'password';
 
     final smtpServer = gmail(username, password);
 
@@ -214,7 +214,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
     await theaters
         .add({
-          'availableClasses': entity.availbleClasses,
+          'availbleClasses': entity.availbleClasses,
           'showTimeList': entity.showEntityList,
           'theaterImage': entity.theaterImage,
           'theaterLocationLink': entity.theaterLocationLink,

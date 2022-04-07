@@ -31,7 +31,7 @@ class AdminAddMoviePage extends StatefulWidget {
 
 class _AdminAddMoviePageState extends State<AdminAddMoviePage> {
   List<String> theaterList = ['Liberty', 'Savoy', 'Majestic city', 'Ceylon'];
-  String selectedTheater = 'oiechwoihc';
+  String selectedTheater = 'Liberty';
   List<TheaterModel> addedList = [];
   String movieNameText = '';
   String movieDescriptionText = '';
