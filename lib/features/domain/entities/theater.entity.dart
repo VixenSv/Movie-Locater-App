@@ -10,18 +10,21 @@ class TheaterEntity extends Equatable {
   final List<dynamic>? availbleClasses;
   final String theaterLocationLink;
   final List<dynamic>? showEntityList;
+  final String theaterId;
 
 
   TheaterEntity(
-      {required this.theaterName,
+      {required this.theaterId,
+        required this.theaterName,
        this.theaterImage,
        this.availbleClasses,
       required this.theaterLocationLink,
        this.showEntityList})
       : super();
 
-  static Future<TheaterEntity> toImageEntity(TheaterModel theaterModel) async {
+  static Future<TheaterEntity> toTheaterEntity(TheaterModel theaterModel) async {
     return await TheaterEntity(
+      theaterId: theaterModel.theaterId,
         theaterName: theaterModel.theaterName,
         availbleClasses: theaterModel.availbleClasses,
         theaterLocationLink: theaterModel.theaterLocationLink,
@@ -29,9 +32,10 @@ class TheaterEntity extends Equatable {
         theaterImage: theaterModel.theaterImage);
   }
 
-  static Future<TheaterModel> fromMovieEntity(
+  static Future<TheaterModel> fromTheaterEntity(
       TheaterEntity theaterEntity) async {
     return await TheaterModel(
+      theaterId: theaterEntity.theaterId,
         theaterName: theaterEntity.theaterName,
         availbleClasses: theaterEntity.availbleClasses!,
         theaterLocationLink: theaterEntity.theaterLocationLink,

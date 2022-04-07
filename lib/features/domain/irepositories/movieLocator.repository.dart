@@ -16,4 +16,5 @@ abstract class MovieLocatorRepository {
   Future<Either<Failure, BookingEntity>> deleteBookingData(BookingEntity entity);
   Future<Either<Failure, String>> addTheaterImage(XFile file);
   Future<Either<Failure, TheaterListEntity>> getTheaterList();
+  Future<Either<Failure, TheaterEntity>> updateTheaterData(TheaterEntity entity);
 }

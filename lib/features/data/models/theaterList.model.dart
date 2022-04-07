@@ -11,12 +11,14 @@ class TheaterListModel extends Equatable {
     List<TheaterModel> theaterList = new List.empty(growable: true);
 
     String theaterName = '';
+    String theaterId = '';
     String theaterImage = '';
     String theaterLocationLink = '';
     List<dynamic> availbleClasses = [];
     List<dynamic> showEntityList = [];
 
     for (DocumentSnapshot i in list) {
+       theaterId = i.id;
        theaterName = i.get('theaterName');
        theaterImage = i.get('theaterImage');
        theaterLocationLink = i.get('theaterLocationLink');

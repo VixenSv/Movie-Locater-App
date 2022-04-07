@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 class TheaterModel extends TheaterEntity {
   TheaterModel({
+    required String theaterId,
     required String theaterName,
     required String theaterImage,
     required List<dynamic> availbleClasses,
@@ -22,13 +23,14 @@ class TheaterModel extends TheaterEntity {
   //method to convert picked Image into a image model
   static Future<TheaterModel> fromFile(
     String theaterName,
-    int theaterId,
+    String theaterId,
     String theaterImage,
     List<dynamic> availbleClasses,
     String theaterLocationLink,
     List<dynamic> showEntityList,
   ) async {
     return await TheaterModel(
+        theaterId: theaterId,
         availbleClasses: availbleClasses,
         showEntityList: showEntityList,
         theaterImage: theaterImage,

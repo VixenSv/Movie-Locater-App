@@ -69,8 +69,27 @@ class TheaterListLoaded extends TheaterState {
   const TheaterListLoaded({required this.listEntity});
 
   @override
-  // TODO: implement props
   List<Object> get props => [listEntity];
+}
+
+class TheaterUpdating extends TheaterState {
+  @override
+  List<Object> get props => [];
+}
+
+class TheaterUpdated extends TheaterState {
+  @override
+  List<Object> get props => [];
+}
+
+class TheaterDeleting extends TheaterState {
+  @override
+  List<Object> get props => [];
+}
+
+class TheaterDeleted extends TheaterState {
+  @override
+  List<Object> get props => [];
 }
 
 

@@ -39,11 +39,20 @@ class GetTheaterListEvent extends TheaterEvent {
   List<Object> get props => [];
 }
 
-class UpdateTheaterImageEvent extends TheaterEvent {
+class UpdateTheaterEvent extends TheaterEvent {
   final TheaterEntity theaterEntity;
 
-  UpdateTheaterImageEvent({required this.theaterEntity});
+  UpdateTheaterEvent({required this.theaterEntity});
 
   @override
   List<Object> get props => [this.theaterEntity];
+}
+
+class DeleteTheaterEvent extends TheaterEvent {
+  final String ref;
+
+  DeleteTheaterEvent({required this.ref});
+
+  @override
+  List<Object> get props => [this.ref];
 }

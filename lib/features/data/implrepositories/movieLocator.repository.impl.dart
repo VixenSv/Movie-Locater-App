@@ -74,7 +74,7 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
   Future<Either<Failure, TheaterEntity>> addTheater(TheaterEntity entity) async{
      
      try{
-        return Right(await TheaterEntity.toImageEntity(
+        return Right(await TheaterEntity.toTheaterEntity(
           await remoteDataSource.addTheater(entity)));
      }on ServerException {
       return Left(ServerFailure());
@@ -95,6 +95,16 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
     try {
       return Right(await TheaterListEntity.toTheaterListEntity(
           await remoteDataSource.getTheaterList()));
+    } on ServerException {
+    return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, TheaterEntity>> updateTheaterData(TheaterEntity entity) async {
+    try {
+      return Right(await TheaterEntity.toTheaterEntity(
+          await remoteDataSource.updateTheater(entity)));
     } on ServerException {
     return Left(ServerFailure());
     }
