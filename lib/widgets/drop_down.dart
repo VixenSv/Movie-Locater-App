@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class DropDownWidget extends StatefulWidget {
   final List<String> list;
   final String? select;

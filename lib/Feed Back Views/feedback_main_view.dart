@@ -128,7 +128,7 @@ class _FeedBackMainState extends State<FeedBackMain> {
       backgroundColor: Color.fromARGB(255, 70, 70, 70),
       appBar: AppBar(
         title: Text(
-          "Feedback Screen",
+          "Feedback",
           style: appbar_text,
         ),
         backgroundColor: Color.fromARGB(255, 70, 70, 70),
