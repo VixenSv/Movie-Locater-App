@@ -8,6 +8,7 @@ import 'package:movie_locator_app/features/presentation/widgets/bottomNavigation
 
 import '../widgets/bnbItem.widget.dart';
 import 'AddTheater.page.dart';
+import 'AdminPanel.page.dart';
 import 'AdminaddMovie.page.dart';
 import 'MovieList.page.dart';
 
@@ -44,14 +45,6 @@ class _HomePageState extends State<HomePage> {
               }),
       BNBItemWidget(
           event: new GoHomeEvent(),
-          icon: Icons.add_circle,
-          label: 'Add Movie',
-          onPressed: () => setState(() {
-                this.appBarTitle = 'Movie List';
-                this.bodyContent = AdminMovieListPage();
-              })),
-      BNBItemWidget(
-          event: new GoHomeEvent(),
           icon: Icons.airplane_ticket,
           label: 'Bookings',
           onPressed: () => setState(() {
@@ -60,19 +53,19 @@ class _HomePageState extends State<HomePage> {
               })),
       BNBItemWidget(
           event: new GoHomeEvent(),
-          icon: Icons.feedback,
-          label: 'Feedbacks',
+          icon: Icons.admin_panel_settings,
+          label: 'Admin Menu',
           onPressed: () => setState(() {
-                this.appBarTitle = 'Feedbacks';
-                this.bodyContent = AddTheaterPage();
-              })),
+            this.appBarTitle = 'Admin Menu';
+            this.bodyContent = AdminPanelPage();
+          })),
       BNBItemWidget(
           event: new GoHomeEvent(),
-          icon: Icons.account_circle,
-          label: 'Profile',
+          icon: Icons.help,
+          label: 'About Us',
           onPressed: () => setState(() {
-                this.appBarTitle = 'Profile';
-                this.bodyContent = TheaterListPage();
+                this.appBarTitle = 'AboutUs';
+                this.bodyContent = AddTheaterPage();
               })),
     ];
     return Scaffold(

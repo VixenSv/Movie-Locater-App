@@ -156,7 +156,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await FirebaseFirestore.instance.collection('bookings').doc(ref).get();
 
     final MovieEntity movieEntity = new MovieEntity(
-        movieId: snapshot.get('movieEntity')['movieId'],
+        movieId: snapshot.id,
         movieName: snapshot.get('movieEntity')['movieName'],
         movieDescription: snapshot.get('movieEntity')['movieDescription'],
         movieImage: snapshot.get('movieEntity')['movieImage']);
@@ -164,7 +164,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     final int numberofTickets = snapshot.get('numberofTickets');
     final String bookingId = ref;
     final TheaterEntity theaterEntity = new TheaterEntity(
-      theaterId: snapshot.get('theaterEntity')['theaterId'],
+      theaterId: '',
       theaterName: snapshot.get('theaterEntity')['theaterName'],
       theaterLocationLink: snapshot.get('theaterEntity')['theaterLocationLink'],
     );

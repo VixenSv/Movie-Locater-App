@@ -3,7 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
+import 'package:movie_locator_app/features/presentation/pages/AddTheater.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
+
+import '../bloc/bloc/bookingBloc/bloc/booking_bloc.dart';
+import '../bloc/bloc/bookingBloc/bloc/booking_event.dart';
 
 class BookingPage extends StatefulWidget {
   final String dropdownValue;
@@ -235,6 +239,17 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                         SizedBox(
                           height: 30.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButton(onPressed: (){
+                            context.read<BookingBloc>().add(
+                                ShowTheaterLocationEvent(
+                                    link: state.theaterEntity.theaterLocationLink));
+                          }, child: MLAText(
+                            text: 'Click here to view theater location',
+
+                          )),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

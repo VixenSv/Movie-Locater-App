@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/TheaterBloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
 
 import 'Home.page.dart';
-import 'MovieList.page.dart';
 import 'ViewTheaters.page.dart';
 
 class SingleTheaterPage extends StatefulWidget {
