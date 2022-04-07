@@ -10,7 +10,7 @@ class TheaterEntity extends Equatable {
   final List<dynamic>? availbleClasses;
   final String theaterLocationLink;
   final List<dynamic>? showEntityList;
-  final List<String> showEntityList;
+
 
   TheaterEntity(
       {required this.theaterName,

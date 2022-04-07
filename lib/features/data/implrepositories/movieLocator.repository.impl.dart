@@ -1,8 +1,10 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dart';
 import 'package:movie_locator_app/core/error/faliure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theaterList.entity.dart';
 
 import '../../../core/error/exception.dart';
 import '../../domain/irepositories/movieLocator.repository.dart';
@@ -76,6 +78,25 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
           await remoteDataSource.addTheater(entity)));
      }on ServerException {
       return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addTheaterImage(XFile file) async {
+    try{
+      return Right(await remoteDataSource.addTheaterImage(file));
+    }on ServerException {
+    return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, TheaterListEntity>> getTheaterList() async {
+    try {
+      return Right(await TheaterListEntity.toTheaterListEntity(
+          await remoteDataSource.getTheaterList()));
+    } on ServerException {
+    return Left(ServerFailure());
     }
   }
 }

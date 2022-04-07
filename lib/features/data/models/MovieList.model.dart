@@ -68,7 +68,6 @@ class MovieListModel extends Equatable {
   Future<List<TheaterModel>> getTheaterModel(DocumentSnapshot ds) async {
     List<TheaterModel> theaterList = new List.empty(growable: true);
     String theaterName = '';
-    int theaterId = 0;
     String theaterImage = '';
     List<dynamic> availbleClasses = [];
     String theaterLocationLink = '';
@@ -85,7 +84,6 @@ class MovieListModel extends Equatable {
       final doc = FirebaseFirestore.instance.doc('theaters/' + j.id);
       await doc.get().then((value) async => {
             theaterName = value.get('theaterName'),
-            theaterId = value.get('theaterId'),
             theaterImage = value.get('theaterImage'),
             availbleClasses = value.get('availbleClasses'),
             theaterLocationLink = value.get('theaterLocationLink'),

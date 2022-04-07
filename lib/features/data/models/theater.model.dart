@@ -11,7 +11,7 @@ class TheaterModel extends TheaterEntity {
     required List<dynamic> availbleClasses,
     required String theaterLocationLink,
     required List<dynamic> showEntityList,
-    required List<String> showEntityList,
+
   }) : super(
             availbleClasses: availbleClasses,
             showEntityList: showEntityList,
@@ -26,7 +26,6 @@ class TheaterModel extends TheaterEntity {
     String theaterImage,
     List<dynamic> availbleClasses,
     String theaterLocationLink,
-    List<String> showEntityList,
     List<dynamic> showEntityList,
   ) async {
     return await TheaterModel(

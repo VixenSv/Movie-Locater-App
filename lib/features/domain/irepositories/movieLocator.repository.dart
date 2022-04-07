@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_locator_app/core/error/faliure.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 import 'package:movie_locator_app/features/domain/entities/movieList.enitity.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
+import 'package:movie_locator_app/features/domain/entities/theaterList.entity.dart';
 
 abstract class MovieLocatorRepository {
   Future<Either<Failure, MovieListEntity>> getMovieList();
@@ -12,4 +14,6 @@ abstract class MovieLocatorRepository {
   Future<Either<Failure, BookingEntity>> getBookingFromRef(String ref);
   Future<Either<Failure, BookingEntity>> updateBookingData(BookingEntity entity);
   Future<Either<Failure, BookingEntity>> deleteBookingData(BookingEntity entity);
+  Future<Either<Failure, String>> addTheaterImage(XFile file);
+  Future<Either<Failure, TheaterListEntity>> getTheaterList();
 }

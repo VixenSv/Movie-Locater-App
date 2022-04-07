@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_locator_app/features/data/models/theater.model.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/domain/usecases/addTheater.usecase.dart';
@@ -16,6 +17,7 @@ import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
 import '../models/movie.model.dart';
+import '../models/theaterList.model.dart';
 
 abstract class RemoteDataSource {
   Future<MovieListModel> getMovieList();
@@ -26,12 +28,16 @@ abstract class RemoteDataSource {
   Future<BookingModel> getBookingFromRef(String ref);
   Future<BookingModel> updateBooking(BookingEntity entity);
   Future<BookingModel> deleteBooking(BookingEntity entity);
+  Future<String> addTheaterImage(XFile file);
+  Future<TheaterListModel> getTheaterList();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage _storage = FirebaseStorage.instance;
   StreamSubscription<QuerySnapshot>? subscription;
   List<DocumentSnapshot>? movieList;
+  List<DocumentSnapshot>? theaterList;
   MovieListModel? movieListModel;
 
   @override
@@ -199,37 +205,62 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<TheaterModel> addTheater(TheaterEntity entity) async{
 
     CollectionReference theaters =
-        FirebaseFirestore.instance.collection('bookings');
+        FirebaseFirestore.instance.collection('theaters');
 
     await theaters
         .add({
-          'availableClasses': {
+          'availableClasses':
             entity.availbleClasses
-          },
-          'showTimeList': {
+          ,
+          'showTimeList':
             entity.showEntityList
-          },
-          'theaterId': entity.theaterId,
+          ,
           'theaterImage': entity.theaterImage,
           'theaterLocationLink': entity.theaterLocationLink,
           'theaterName': entity.theaterName,
         })
         .then((value) async => {
-              // send_email = Email(
-              //   body: 'Booking Reference: '+value.id,
-              //   subject: 'subject of email',
-              //   recipients: ['vchamindu@gmail.com'],
-              //   cc: [],
-              //   bcc: [],
-              //   attachmentPaths: [],
-              //   isHTML: false,
-              // ),
-              // await FlutterEmailSender.send(send_email)
-
-
             })
         .catchError((error) => print("Failed to add booking: $error"));
 
     return TheaterEntity.fromMovieEntity(entity);
+  }
+
+  @override
+  Future<String> addTheaterImage(XFile xfile) async {
+
+    final storageRef = FirebaseStorage.instance.ref();
+
+    String fileName = xfile.name;
+    // final mountainsRef = storageRef.child("mountains.jpg");
+
+
+    final imagesRef = storageRef.child("theaterImages/$fileName");
+
+    File file = File(xfile.path);
+
+    String url = '';
+
+    try {
+      final task = await imagesRef.putFile(file);
+      url = await imagesRef.getDownloadURL();
+    } catch (e){
+
+    }
+
+    return url;
+
+  }
+
+  @override
+  Future<TheaterListModel> getTheaterList() async {
+
+    TheaterListModel theaterListModel = TheaterListModel();
+
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('theaters').get();
+    theaterList = snapshot.docs;
+    theaterListModel = await theaterListModel.toTheaterModel(theaterList!);
+    return theaterListModel;
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_event.dart';
+import 'package:movie_locator_app/features/presentation/pages/ViewTheaters.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/viewBookings.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/bottomNavigationBar.widget.dart';
 
 import '../widgets/bnbItem.widget.dart';
+import 'AddTheater.page.dart';
 import 'MovieList.page.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           label: 'Feedbacks',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Feedbacks';
-                // this.bodyContent = FeedbacksPage();
+                this.bodyContent = AddTheaterPage();
               })),
       BNBItemWidget(
           event: new GoHomeEvent(),
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
           label: 'Profile',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Profile';
-                // this.bodyContent = ProfilePage();
+                this.bodyContent = TheaterListPage();
               })),
     ];
     return Scaffold(
