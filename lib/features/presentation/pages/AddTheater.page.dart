@@ -8,6 +8,9 @@ import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/TheaterBloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
 
+import 'Home.page.dart';
+import 'ViewTheaters.page.dart';
+
 class AddTheaterPage extends StatefulWidget {
   AddTheaterPage({Key? key}) : super(key: key);
 
@@ -368,13 +371,17 @@ class _AddTheaterPageState extends State<AddTheaterPage> {
                       child: RedButtonWidget(
                         onPressed: () {
                           context.read<TheaterBloc>().add(SaveTheaterDataEvent(
+                            context: context,
                               theaterEntity: TheaterEntity(
+                                theaterId: '',
                                 theaterName: this.theaterName,
                                 theaterLocationLink: this.theaterLocation,
                                 availbleClasses: this.classList,
                                 showEntityList: this.showTimeList,
                                 theaterImage: this.theaterImage
                               )));
+
+
                         },
                         label: 'Save',
                       ),

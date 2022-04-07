@@ -1,6 +1,7 @@
 
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 
 abstract class TheaterEvent extends Equatable {
@@ -12,11 +13,12 @@ abstract class TheaterEvent extends Equatable {
 
 class SaveTheaterDataEvent extends TheaterEvent {
   final TheaterEntity theaterEntity;
+  final BuildContext context;
 
-  SaveTheaterDataEvent({required this.theaterEntity});
+  SaveTheaterDataEvent({required this.theaterEntity, required this.context});
 
   @override
-  List<Object> get props => [this.theaterEntity];
+  List<Object> get props => [this.theaterEntity,this.context];
 }
 
 class SelectTheaterImageEvent extends TheaterEvent {

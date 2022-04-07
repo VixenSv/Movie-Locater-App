@@ -8,12 +8,17 @@ import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/TheaterBloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/widgets/redButton.widget.dart';
 
+import 'Home.page.dart';
+import 'MovieList.page.dart';
+import 'ViewTheaters.page.dart';
+
 class SingleTheaterPage extends StatefulWidget {
   final TheaterEntity theaterEntity;
   SingleTheaterPage({Key? key, required this.theaterEntity}) : super(key: key);
 
   @override
-  State<SingleTheaterPage> createState() => _SingleTheaterPageState(theaterEntity: theaterEntity);
+  State<SingleTheaterPage> createState() =>
+      _SingleTheaterPageState(theaterEntity: theaterEntity);
 }
 
 class _SingleTheaterPageState extends State<SingleTheaterPage> {
@@ -63,7 +68,7 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
+                                BorderRadius.all(Radius.circular(20))),
                         child: MaterialButton(
                           onPressed: () {
                             context
@@ -73,7 +78,8 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                           child: Column(
                             children: <Widget>[
                               Center(
-                                  child: Image.network(this.theaterEntity.theaterImage!)),
+                                  child: Image.network(
+                                      this.theaterEntity.theaterImage!)),
                               Text(
                                 'Click here change image!',
                                 style: TextStyle(color: Colors.white),
@@ -103,7 +109,7 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                           decoration: BoxDecoration(
                               color: Color(0xff484848),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
@@ -111,7 +117,7 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                                 child: TextField(
                                   decoration: new InputDecoration(
                                       hintStyle:
-                                      TextStyle(color: Colors.white38),
+                                          TextStyle(color: Colors.white38),
                                       hintText: this.theaterEntity.theaterName),
                                   keyboardType: TextInputType.text,
                                   style: TextStyle(color: Colors.white),
@@ -149,15 +155,20 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                           decoration: BoxDecoration(
                               color: Color(0xff484848),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: ListView.builder(
-                                itemCount: this.theaterEntity.showEntityList!.length,
+                                itemCount:
+                                    this.theaterEntity.showEntityList!.length,
                                 itemBuilder: (context, index) => ListCard(
-                                  showTimeList: (this.theaterEntity.showEntityList as List).map((item) => item as String).toList(),
-                                  index: index,
-                                )),
+                                      showTimeList: (this
+                                              .theaterEntity
+                                              .showEntityList as List)
+                                          .map((item) => item as String)
+                                          .toList(),
+                                      index: index,
+                                    )),
                           ),
                         ),
                       ),
@@ -182,7 +193,7 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                           decoration: BoxDecoration(
                               color: Color(0xff484848),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
@@ -190,8 +201,10 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                                 child: TextField(
                                   decoration: new InputDecoration(
                                       hintStyle:
-                                      TextStyle(color: Colors.white38),
-                                      hintText: this.theaterEntity.theaterLocationLink),
+                                          TextStyle(color: Colors.white38),
+                                      hintText: this
+                                          .theaterEntity
+                                          .theaterLocationLink),
                                   keyboardType: TextInputType.text,
                                   style: TextStyle(color: Colors.white),
                                   onChanged: (String? newValue) {
@@ -226,15 +239,20 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                           decoration: BoxDecoration(
                               color: Color(0xff484848),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: ListView.builder(
-                                itemCount: this.theaterEntity.availbleClasses!.length,
+                                itemCount:
+                                    this.theaterEntity.availbleClasses!.length,
                                 itemBuilder: (context, index) => ListCard(
-                                  showTimeList: (this.theaterEntity.availbleClasses as List).map((item) => item as String).toList(),
-                                  index: index,
-                                )),
+                                      showTimeList: (this
+                                              .theaterEntity
+                                              .availbleClasses as List)
+                                          .map((item) => item as String)
+                                          .toList(),
+                                      index: index,
+                                    )),
                           ),
                         ),
                       ),
@@ -243,42 +261,64 @@ class _SingleTheaterPageState extends State<SingleTheaterPage> {
                       height: 30.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:                         Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                RedButtonWidget(
-                                    onPressed: () => {
-
-                                    },
-                                    label: 'Update Theater'),
-                              ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  RedButtonWidget(
+                                      onPressed: () => {
+                                            context.read<TheaterBloc>().add(
+                                                UpdateTheaterEvent(
+                                                    theaterEntity:
+                                                        new TheaterEntity(
+                                                            theaterId:
+                                                                this.theaterEntity.theaterId,
+                                                            theaterName:
+                                                                this.theaterName.length > 0? this.theaterName : this.theaterEntity.theaterName,
+                                                            theaterLocationLink:
+                                                            this.theaterLocation.length > 0? this.theaterLocation : this.theaterEntity.theaterLocationLink,
+                                                            availbleClasses: this.theaterEntity.availbleClasses,
+                                                          showEntityList: this.theaterEntity.showEntityList,
+                                                          theaterImage: this.theaterImage.length > 0? this.theaterImage : this.theaterEntity.theaterImage,
+                                                        ))),
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => HomePage(TheaterListPage(), 'Theaters')),
+                                        )
+                                          },
+                                      label: 'Update Theater'),
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                RedButtonWidget(
-                                    onPressed: () => {
-
-                                    },
-                                    label: 'Delete Theater'),
-                              ],
+                            SizedBox(
+                              width: 20,
                             ),
-                          )
-                        ],
-                      )
-                    )
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  RedButtonWidget(
+                                      onPressed: () => {
+                                      context.read<TheaterBloc>().add(DeleteTheaterEvent(ref: this.theaterEntity.theaterId)),
+                                      Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                      builder: (context) => HomePage(TheaterListPage(), 'Theaters')),
+                                      )
+                                      },
+                                      label: 'Delete Theater'),
+                                ],
+                              ),
+                            )
+                          ],
+                        ))
                   ],
                 ),
               ),

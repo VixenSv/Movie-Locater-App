@@ -67,6 +67,9 @@ class MovieListModel extends Equatable {
 
   Future<List<TheaterModel>> getTheaterModel(DocumentSnapshot ds) async {
     List<TheaterModel> theaterList = new List.empty(growable: true);
+
+  try{
+    String theaterId = '';
     String theaterName = '';
     String theaterImage = '';
     List<dynamic> availbleClasses = [];
@@ -74,6 +77,7 @@ class MovieListModel extends Equatable {
     List<dynamic> showEntityList = [];
 
     TheaterModel tm = new TheaterModel(
+        theaterId: theaterId,
         theaterName: theaterName,
         theaterImage: theaterImage,
         availbleClasses: availbleClasses,
@@ -83,20 +87,25 @@ class MovieListModel extends Equatable {
     for (var j in listRef) {
       final doc = FirebaseFirestore.instance.doc('theaters/' + j.id);
       await doc.get().then((value) async => {
-            theaterName = value.get('theaterName'),
-            theaterImage = value.get('theaterImage'),
-            availbleClasses = value.get('availbleClasses'),
-            theaterLocationLink = value.get('theaterLocationLink'),
-            showEntityList = value.get('showTimeList'),
-            tm = new TheaterModel(
-                theaterName: theaterName,
-                theaterImage: theaterImage,
-                availbleClasses: availbleClasses,
-                theaterLocationLink: theaterLocationLink,
-                showEntityList: showEntityList),
-          });
+        theaterId = value.id,
+        theaterName = value.get('theaterName'),
+        theaterImage = value.get('theaterImage'),
+        availbleClasses = value.get('availbleClasses'),
+        theaterLocationLink = value.get('theaterLocationLink'),
+        showEntityList = value.get('showTimeList'),
+        tm = new TheaterModel(
+            theaterId: theaterId,
+            theaterName: theaterName,
+            theaterImage: theaterImage,
+            availbleClasses: availbleClasses,
+            theaterLocationLink: theaterLocationLink,
+            showEntityList: showEntityList),
+      });
       theaterList.add(tm);
     }
+  } catch(e){
+
+  }
 
     return theaterList;
   }

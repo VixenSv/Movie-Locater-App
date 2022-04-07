@@ -26,6 +26,7 @@ class TheaterListModel extends Equatable {
        showEntityList = i.get('showTimeList');
 
       theaterList.add(new TheaterModel(
+          theaterId: theaterId,
           theaterName: theaterName,
           theaterImage: theaterImage,
           availbleClasses: availbleClasses,

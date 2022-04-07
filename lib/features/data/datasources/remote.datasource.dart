@@ -31,6 +31,7 @@ abstract class RemoteDataSource {
   Future<String> addTheaterImage(XFile file);
   Future<TheaterListModel> getTheaterList();
   Future<TheaterModel> updateTheater(TheaterEntity entity);
+  Future<bool> deleteTheater(String ref);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -160,6 +161,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     final int numberofTickets = snapshot.get('numberofTickets');
     final String bookingId = ref;
     final TheaterEntity theaterEntity = new TheaterEntity(
+      theaterId: snapshot.get('theaterEntity')['theaterId'],
       theaterName: snapshot.get('theaterEntity')['theaterName'],
       theaterLocationLink: snapshot.get('theaterEntity')['theaterLocationLink'],
     );
@@ -270,12 +272,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     CollectionReference bookings =
     FirebaseFirestore.instance.collection('theaters');
 
-    await bookings.doc('').update({
+    await bookings.doc(entity.theaterId).update({
       'theaterImage': entity.theaterImage,
       'theaterLocationLink':entity.theaterLocationLink,
-      'theaterName':entity.theaterImage
+      'theaterName':entity.theaterName
     }).catchError((error) => print(error));
 
     return TheaterEntity.fromTheaterEntity(entity);
+  }
+
+  @override
+  Future<bool> deleteTheater(String ref) async {
+    CollectionReference bookings =
+    FirebaseFirestore.instance.collection('theaters');
+
+    await bookings
+        .doc(ref)
+        .delete()
+        .catchError((error) => print(error));
+
+    return true;
+
   }
 }

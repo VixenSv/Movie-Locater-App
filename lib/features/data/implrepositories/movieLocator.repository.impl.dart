@@ -109,4 +109,14 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
     return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deleteTheaterData(String ref) async {
+    try {
+      await remoteDataSource.deleteTheater(ref);
+      return Right(true);
+    } on ServerException {
+    return Left(ServerFailure());
+    }
+  }
 }

@@ -14,6 +14,7 @@ class TheaterModel extends TheaterEntity {
     required List<dynamic> showEntityList,
 
   }) : super(
+            theaterId: theaterId,
             availbleClasses: availbleClasses,
             showEntityList: showEntityList,
             theaterImage: theaterImage,

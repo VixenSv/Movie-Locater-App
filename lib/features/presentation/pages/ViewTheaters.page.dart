@@ -51,6 +51,7 @@ class TheaterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String theaterId = _theaterList.theaterList[_index].theaterId;
     String theaterImage = _theaterList.theaterList[_index].theaterImage!;
     String theaterName = _theaterList.theaterList[_index].theaterName;
     String theaterLocationLink =
@@ -62,6 +63,7 @@ class TheaterList extends StatelessWidget {
     return Expanded(
         child: TheaterCardWidget(
       theaterEntity: new TheaterEntity(
+        theaterId: theaterId,
         theaterLocationLink: theaterLocationLink,
         theaterName: theaterName,
         theaterImage: theaterImage,
