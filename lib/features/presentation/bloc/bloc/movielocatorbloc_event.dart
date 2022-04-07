@@ -12,8 +12,12 @@ abstract class MovielocatorblocEvent extends Equatable {
 }
 
 class GetMovieListEvent extends MovielocatorblocEvent {
+  final bool isAdmin;
+
+  GetMovieListEvent({required this.isAdmin});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [this.isAdmin];
 }
 
 class AddMovieEvent extends MovielocatorblocEvent {
@@ -25,6 +29,17 @@ class AddMovieEvent extends MovielocatorblocEvent {
   @override
   List<Object> get props => [movieEntity];
 }
+
+class UpdateMovieEvent extends MovielocatorblocEvent {
+  final MovieEntity movieEntity;
+  final BuildContext context;
+
+  UpdateMovieEvent({required this.movieEntity, required this.context});
+
+  @override
+  List<Object> get props => [movieEntity];
+}
+
 class GoHomeEvent extends MovielocatorblocEvent {
   @override
   List<Object?> get props => [];

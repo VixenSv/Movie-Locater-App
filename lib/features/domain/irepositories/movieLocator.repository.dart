@@ -20,4 +20,5 @@ abstract class MovieLocatorRepository {
   Future<Either<Failure, TheaterListEntity>> getTheaterList();
   Future<Either<Failure, TheaterEntity>> updateTheaterData(TheaterEntity entity);
   Future<Either<Failure, bool>> deleteTheaterData(String ref);
+  Future<Either<Failure, MovieListEntity>> getAdminMovieList();
 }

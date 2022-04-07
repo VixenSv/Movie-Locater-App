@@ -18,44 +18,25 @@ class MovieListModel extends Equatable {
     String movieName = '';
     String movieImage = '';
     String movieDescription = '';
-    int movieID = 0;
+    String movieID = '';
     List<TheaterModel> theaterList2 = [];
 
     MovieModel mm = new MovieModel(
         movieName: movieName,
+        movieId: movieID,
         movieDescription: movieDescription,
         theaterList: theaterList2,
         movieImage: movieImage);
-
-    //   List<dynamic> listRef = await i.get('theaterList');
-    // for (var j in listRef) {
-    //   final doc = FirebaseFirestore.instance.doc('theaters/' + j.id);
-    //   await doc.get().then((value) async => {
-    //         theaterName = value.get('theaterName'),
-    //         theaterId = value.get('theaterId'),
-    //         theaterImage = value.get('theaterImage'),
-    //         availbleClasses = value.get('availbleClasses'),
-    //         theaterLocationLink = value.get('theaterLocationLink'),
-    //         showEntityList = value.get('showTimeList'),
-    //         tm = new TheaterModel(
-    //             theaterName: theaterName,
-    //             theaterId: theaterId,
-    //             theaterImage: theaterImage,
-    //             availbleClasses: availbleClasses,
-    //             theaterLocationLink: theaterLocationLink,
-    //             showEntityList: showEntityList),
-    //       });
-    //   theaterList.add(tm);
-    // }
 
     for (DocumentSnapshot i in list) {
       // theaterList.clear();
       movieName = i.get('movieName');
       movieImage = i.get('movieImage');
       movieDescription = i.get('movieDescription');
-      movieID = i.get('movieId');
+      movieID = i.id;
       theaterList2 = await getTheaterModel(i);
       mm = new MovieModel(
+        movieId: movieID,
           movieName: movieName,
           movieDescription: movieDescription,
           theaterList: theaterList2,

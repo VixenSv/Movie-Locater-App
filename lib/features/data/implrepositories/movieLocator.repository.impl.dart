@@ -126,7 +126,17 @@ class MovieLocatorRepositoryImpl implements MovieLocatorRepository {
   Future<Either<Failure, MovieEntity>> addMovie(MovieEntity movie) async {
     try {
       final movieModel = await remoteDataSource.addMovie(movie);
-      return Right(await MovieEntity.toImageEntity(movieModel));
+      return Right(await MovieEntity.toMovieEntity(movieModel));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieListEntity>> getAdminMovieList() async {
+    try {
+      return Right(await MovieListEntity.toMovieListEntity(
+          await remoteDataSource.getAdminMovieList()));
     } on ServerException {
       return Left(ServerFailure());
     }

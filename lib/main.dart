@@ -7,6 +7,7 @@ import 'package:movie_locator_app/features/domain/usecases/addTheater.usecase.da
 import 'package:movie_locator_app/features/domain/usecases/addTheaterImage.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/deleteBooking.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/deleteTheater.usecase.dart';
+import 'package:movie_locator_app/features/domain/usecases/getAdminMovieList.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/getBookingDataFromRef.usecase.dart';
 import 'package:movie_locator_app/features/domain/usecases/confirmBooking.usecase.dart';
 import 'package:movie_locator_app/features/domain/irepositories/movieLocator.repository.dart';
@@ -45,8 +46,10 @@ class MyApp extends StatelessWidget {
                       addMovie: AddMovie(MovieLocatorRepositoryImpl(
                       remoteDataSource: RemoteDataSourceImpl())),
                   confirmBooking: ConfirmBooking(MovieLocatorRepositoryImpl(
-                      remoteDataSource: RemoteDataSourceImpl())))
-                ..add(GetMovieListEvent())),
+                      remoteDataSource: RemoteDataSourceImpl())),
+              getAdminMovieList: GetAdminMovieList(MovieLocatorRepositoryImpl(
+                  remoteDataSource: RemoteDataSourceImpl())))
+                ..add(GetMovieListEvent(isAdmin: false))),
           BlocProvider(
               create: (context) => BookingBloc(
                   getBookingDataFromRef: GetBookingDataFromRef(
@@ -75,7 +78,7 @@ class MyApp extends StatelessWidget {
             title: 'Movie Locator',
             initialRoute: '/home',
             routes: {
-              '/home': (context) => HomePage(MovieDetailsPage(), 'Movie List')
+              '/home': (context) => HomePage(MovieListPage(), 'Movie List')
             }));
   }
 }

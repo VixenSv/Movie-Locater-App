@@ -6,14 +6,12 @@ import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movie_locator_app/features/data/models/theater.model.dart';
 import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
-import 'package:movie_locator_app/features/domain/usecases/addTheater.usecase.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:movie_locator_app/features/data/models/booking.model.dart';
 import 'package:movie_locator_app/features/domain/entities/booking.entity.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:movie_locator_app/features/domain/entities/movie.entity.dart';
-import 'package:movie_locator_app/features/domain/entities/theater.entity.dart';
+
 
 import '../../../core/error/exception.dart';
 import '../models/MovieList.model.dart';
@@ -34,6 +32,7 @@ abstract class RemoteDataSource {
   Future<TheaterListModel> getTheaterList();
   Future<TheaterModel> updateTheater(TheaterEntity entity);
   Future<bool> deleteTheater(String ref);
+  Future<MovieListModel> getAdminMovieList();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -72,6 +71,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       downloadUrl = await snapshot.ref.getDownloadURL();
 
       return MovieModel(
+        movieId: '',
         movieImage: downloadUrl,
         movieDescription: '',
         movieName: '',
@@ -156,6 +156,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await FirebaseFirestore.instance.collection('bookings').doc(ref).get();
 
     final MovieEntity movieEntity = new MovieEntity(
+        movieId: snapshot.get('movieEntity')['movieId'],
         movieName: snapshot.get('movieEntity')['movieName'],
         movieDescription: snapshot.get('movieEntity')['movieDescription'],
         movieImage: snapshot.get('movieEntity')['movieImage']);
@@ -300,20 +301,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<MovieModel> addMovie(MovieEntity movieEntity) async {
     CollectionReference movies =
-        FirebaseFirestore.instance.collection('movies');
+        FirebaseFirestore.instance.collection('admins-movies');
 
     await movies
         .add({
           'movieDescription': movieEntity.movieDescription,
-          'movieId': movieEntity.movieID,
           'movieImage': movieEntity.movieImage,
           'movieName': movieEntity.movieName,
-          'theaterList': [],
+          'theaterList': movieEntity.theaterList!.map((e) => e.theaterName).toList(),
         })
         .then((value) => print(value))
         .catchError(
           (error) => print("fail to add movie $error"),
         );
     return MovieEntity.fromMovieEntity(movieEntity);
+  }
+
+  @override
+  Future<MovieListModel> getAdminMovieList() async {
+
+    MovieListModel movieListModel = MovieListModel();
+
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('admins-movies').get();
+    movieList = snapshot.docs;
+    movieListModel = await movieListModel.toMovieModel(movieList!);
+    return movieListModel;
   }
 }

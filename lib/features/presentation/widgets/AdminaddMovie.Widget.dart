@@ -151,18 +151,18 @@ class _AdminAddMovieWidgetState extends State<AdminAddMovieWidget> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          AddMovieButtonWidget(
-                            movieEntity: state.movieEntity,
-                            onPressed () => {
-                              context.read,MovielocatorblocBloc>().add(AddMovieEvent(
-                                context: context,
-                                addingMovieEntity: new AddMovieEntity(
-                                  movieId: 0, movieEntity: state.movieEntity, movieName: state.movieName, movieDescription: state.movieImage 
-                                )
-                              ))
-                            },
-                            label: 'Add Movie'
-                          )
+                          // AddMovieButtonWidget(
+                          //   movieEntity: state.movieEntity,
+                          //   onPressed () => {
+                          //     context.read,MovielocatorblocBloc>().add(AddMovieEvent(
+                          //       context: context,
+                          //       addingMovieEntity: new AddMovieEntity(
+                          //         movieId: 0, movieEntity: state.movieEntity, movieName: state.movieName, movieDescription: state.movieImage
+                          //       )
+                          //     ))
+                          //   },
+                          //   label: 'Add Movie'
+                          // )
                         ],
                       ),
                     ),

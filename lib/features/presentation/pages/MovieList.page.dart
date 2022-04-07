@@ -22,7 +22,7 @@ class MovieListPage extends StatelessWidget {
         return Text('Empty!');
       } else if (state is MovieListLoading) {
         //calling the events
-        context.read<MovielocatorblocBloc>().add(GetMovieListEvent());
+        context.read<MovielocatorblocBloc>().add(GetMovieListEvent(isAdmin: false));
       } else if (state is MovieListLoaded) {
         final movieList = state.listEntity;
         return ListView.builder(
@@ -72,6 +72,7 @@ class MovieList extends StatelessWidget {
     return Expanded(
         child: MovieCardWidget(
       movieEntity: new MovieEntity(
+        movieId: '',
           movieImage: movieImage,
           movieName: movieName,
           movieDescription: movieDescription,

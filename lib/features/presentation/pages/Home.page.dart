@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_locator_app/features/presentation/pages/AdminMovieList.page.dart';
 import 'package:movie_locator_app/features/presentation/pages/MovieDetails.page.dart';
 import 'package:movie_locator_app/features/presentation/bloc/bloc/movielocatorbloc_event.dart';
 import 'package:movie_locator_app/features/presentation/pages/ViewTheaters.page.dart';
@@ -7,6 +8,7 @@ import 'package:movie_locator_app/features/presentation/widgets/bottomNavigation
 
 import '../widgets/bnbItem.widget.dart';
 import 'AddTheater.page.dart';
+import 'AdminaddMovie.page.dart';
 import 'MovieList.page.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,11 +42,13 @@ class _HomePageState extends State<HomePage> {
                   this.bodyContent = MovieListPage();
                 })
               }),
+      BNBItemWidget(
+          event: new GoHomeEvent(),
+          icon: Icons.add_circle,
           label: 'Add Movie',
           onPressed: () => setState(() {
                 this.appBarTitle = 'Movie List';
-                this.bodyContent = MovieDetailsPage();
-
+                this.bodyContent = AdminMovieListPage();
               })),
       BNBItemWidget(
           event: new GoHomeEvent(),

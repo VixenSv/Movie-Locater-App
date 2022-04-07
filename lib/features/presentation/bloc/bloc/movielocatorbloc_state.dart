@@ -44,9 +44,9 @@ class MovieListLoaded extends MovielocatorblocState {
   const MovieListLoaded({required this.listEntity});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [listEntity];
 }
+
 
 class BookingState extends MovielocatorblocState {
   final MovieEntity movieEntity;
@@ -66,24 +66,19 @@ class BookingState extends MovielocatorblocState {
   List<Object?> get props => [this.movieEntity, this.theaterEntity, this.showTimeList, this.classList];
 }
 
+
 class MovieDetailLoaded extends MovielocatorblocState {
   final MovieEntity entity;
 
   const MovieDetailLoaded({required this.entity});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [entity];
+
+  List<Object> get props => [entity];
 }
 
-
-
-
 class AddingMovie extends MovielocatorblocState {
+  @override
 
-  const AddingMovie();
-
-    @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }

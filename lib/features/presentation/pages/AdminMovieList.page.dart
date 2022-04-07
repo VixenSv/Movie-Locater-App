@@ -8,6 +8,9 @@ import 'package:movie_locator_app/features/presentation/bloc/bloc/bloc.dart';
 import 'package:movie_locator_app/features/presentation/pages/MovieList.page.dart';
 import 'package:movie_locator_app/features/presentation/widgets/movieCard.widget.dart';
 
+import '../../data/models/theater.model.dart';
+import '../widgets/adminMovieCard.widget.dart';
+
 class AdminMovieListPage extends StatelessWidget {
   // const AdminMovieListPage({ Key? key }) : super(key: key);
 
@@ -30,8 +33,8 @@ class AdminMovieListPage extends StatelessWidget {
                   } else if (state is MovieListLoading) {
                     context
                         .read<MovielocatorblocBloc>()
-                        .add(GetMovieListEvent());
-                  } else if (State is MovieListLoaded) {
+                        .add(GetMovieListEvent(isAdmin: true));
+                  } else if (state is MovieListLoaded) {
                     final movieList = state.listEntity;
                     return SingleChildScrollView(
                         physics: AlwaysScrollableScrollPhysics(),
@@ -40,7 +43,7 @@ class AdminMovieListPage extends StatelessWidget {
                             itemCount: state.listEntity.movieList.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return MovieList(
+                              return AdminMovieList(
                                 index: index,
                                 movieListEntity: movieList,
                               );
@@ -78,25 +81,21 @@ class AdminMovieList extends StatelessWidget {
   final MovieListEntity _movieList;
   final int _index;
 
-  printlog() {
-    print('index is ' + _index.toString());
-  }
-
   @override
   Widget build(BuildContext context) {
-    int movieID = _movieList.movieList[_index].movieID;
+    String movieId = _movieList.movieList[_index].movieId;
     String movieName = _movieList.movieList[_index].movieName;
     String movieDescription = _movieList.movieList[_index].movieDescription;
     String movieImage = _movieList.movieList[_index].movieImage;
-    List<dynamic> theatherIdList = _movieList.movieList[_index].theatherIdList;
+    List<TheaterModel> theatherIdList = _movieList.movieList[_index].theaterList!;
 
     return Expanded(
-        child: MovieCardWidget(
-            movieEntity: new MovieEntity(                
-                movieID: movieID,
+        child: AdminMovieCardWidget(
+            movieEntity: new MovieEntity(
+              movieId: movieId,
                 movieName: movieName,
                 movieDescription: movieDescription,
                 movieImage: movieImage,
-                theatherIdList: theatherIdList)));
+                theaterList: theatherIdList)));
   }
 }

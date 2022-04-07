@@ -7,13 +7,13 @@ import 'package:image_picker/image_picker.dart';
 
 class MovieModel extends MovieEntity {
   MovieModel({
-
+    required String movieId,
     required String movieName,
     required String movieDescription,
     required List<TheaterModel> theaterList,
     required String movieImage,
   }) : super(
-
+            movieId: movieId,
             movieName: movieName,
             movieDescription: movieDescription,
             theaterList: theaterList,
@@ -25,8 +25,10 @@ class MovieModel extends MovieEntity {
       String movieName,
       String movieDescription,
       List<TheaterModel> theaterList,
+      String movieId,
       String movieImage) async {
     return await MovieModel(
+      movieId: movieId,
         movieName: movieName,
         movieDescription: movieDescription,
         movieImage: pickedFile.path,

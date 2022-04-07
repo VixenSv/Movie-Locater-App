@@ -10,9 +10,12 @@ class MovieEntity extends Equatable {
   final String movieImage;
   final String movieDescription;
   final List<TheaterModel>? theaterList;
+  final String movieId;
 
   MovieEntity(
-      { required this.movieImage,
+      {
+        required this.movieId,
+        required this.movieImage,
       required this.movieName,
       required this.movieDescription,
        this.theaterList})
@@ -20,6 +23,7 @@ class MovieEntity extends Equatable {
 
   static Future<MovieEntity> toMovieEntity(MovieModel movieModel) async {
     return await MovieEntity(
+        movieId: movieModel.movieId,
         movieDescription: movieModel.movieDescription,
         movieName: movieModel.movieName,
         theaterList: movieModel.theaterList,
@@ -28,6 +32,7 @@ class MovieEntity extends Equatable {
 
   static Future<MovieModel> fromMovieEntity(MovieEntity movieEntity) async {
     return await MovieModel(
+      movieId: movieEntity.movieId,
         movieName: movieEntity.movieName,
         movieDescription: movieEntity.movieDescription,
         movieImage: movieEntity.movieImage,
